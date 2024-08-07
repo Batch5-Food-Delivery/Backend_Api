@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.domain.Region;
 import com.hostmdy.food.service.RegionService;
 

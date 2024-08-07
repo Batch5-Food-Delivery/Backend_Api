@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.repository.FoodRepository;
 import com.hostmdy.food.repository.RegionRepository;
