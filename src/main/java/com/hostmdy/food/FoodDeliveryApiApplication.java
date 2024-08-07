@@ -7,12 +7,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.repository.FoodRepository;
+import com.hostmdy.food.repository.RegionRepository;
 
 @SpringBootApplication
 public class FoodDeliveryApiApplication implements CommandLineRunner {
 	
 	@Autowired
 	public FoodRepository foodRepository;
+	public RegionRepository regionRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(FoodDeliveryApiApplication.class, args);
