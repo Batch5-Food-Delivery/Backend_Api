@@ -1,10 +1,14 @@
 package com.hostmdy.food.domain;
 
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name="users")
 public class User {
 	
 	@Id
@@ -27,7 +31,5 @@ public class User {
 	private String password;
 	private Boolean enable;
 	private String profile;
-	
-	
 	
 }
