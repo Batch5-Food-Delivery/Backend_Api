@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class FoodController {
 	
 	private final FoodService foodService;
-	
+
 	@GetMapping("/all")
 	public List<Food> getAllFoods(){
 		List<Food> foodList = foodService.getAllFood();
