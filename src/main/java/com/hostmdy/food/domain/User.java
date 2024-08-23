@@ -1,9 +1,15 @@
 package com.hostmdy.food.domain;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hostmdy.food.domain.security.UserRoles;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,5 +38,9 @@ public class User {
 	private String password;
 	private Boolean enable;
 	private String profile;
+	
+	@OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<UserRoles> userRoles = new HashSet<>();
 	
 }
