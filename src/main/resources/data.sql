@@ -1,9 +1,9 @@
-INSERT INTO users (id, firstname, lastname, username, email, password, enable, profile)
-VALUES (1, 'John', 'Doe', 'JohnDoe','john.doe@example.com', 'password123', TRUE, 'Profile description');
+INSERT INTO users (firstname, lastname, username, email, password, enable, profile)
+VALUES ('John', 'Doe', 'JohnDoe','john.doe@example.com', '$2y$10$mAWrRQZvBDYrRDyVurkA2.7i/kUipiIaHXdEngATSQXM7jPm2SOcm', TRUE, 'Profile description');
 
 -- Insert another user with different values
-INSERT INTO users (id, firstname, lastname, username, email, password, enable, profile)
-VALUES (2, 'Jane', 'Smith', 'JaneSmith', 'jane.smith@example.com', 'password456', FALSE, 'Another profile description');
+INSERT INTO users (firstname, lastname, username, email, password, enable, profile)
+VALUES ('Jane', 'Smith', 'JaneSmith', 'jane.smith@example.com', '$2y$10$Hyp6vZP71uLcrEUkcGgJS.69YmO1vlXEhkGCL6SwrLtN4WwZeM9pK', FALSE, 'Another profile description');
 
 INSERT INTO role (id, name) VALUES (1, 'USER');
 INSERT INTO role (id, name) VALUES (2, 'ADMIN');

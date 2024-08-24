@@ -3,6 +3,8 @@ package com.hostmdy.food.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hostmdy.food.domain.User;
+import com.hostmdy.food.exception.UserAlreadyExistsException;
 import com.hostmdy.food.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -45,7 +48,13 @@ private final UserService userService;
 	
 	@PostMapping("/create")
 	public ResponseEntity<User> createUser(@RequestBody User user){
-		return ResponseEntity.status(201).body(userService.createUser(user));
+
+		 try {
+	            User newUser = userService.createUser(user);
+	            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+	        } catch (UserAlreadyExistsException ex) {
+	            return ResponseEntity.status(HttpStatus.CONFLICT).body(user);
+	        }
 	}
 	
 	@PutMapping("/update")
