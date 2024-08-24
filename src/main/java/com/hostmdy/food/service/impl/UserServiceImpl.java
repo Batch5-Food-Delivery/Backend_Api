@@ -32,6 +32,17 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userRepository.findById(userId);
 	}
+	
+	@Override
+	public Optional<User> getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+	@Override
+	public Optional<User> getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUsername(username);
+	}
 
 	@Override
 	public List<User> getAllUsers() {
@@ -97,6 +108,4 @@ public class UserServiceImpl implements UserService{
 		
 		return saveUser(user);
 	}
-
-
 }

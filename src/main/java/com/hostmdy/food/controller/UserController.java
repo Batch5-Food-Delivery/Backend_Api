@@ -3,9 +3,14 @@ package com.hostmdy.food.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +20,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hostmdy.food.config.JwtTokenProvider;
 import com.hostmdy.food.domain.User;
 import com.hostmdy.food.exception.UserAlreadyExistsException;
+import com.hostmdy.food.payload.LoginRequest;
+import com.hostmdy.food.payload.LoginResponse;
 import com.hostmdy.food.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,9 +34,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 public class UserController {
 	
-private final UserService userService;
+private final static String TOKEN_PREFIX = "Bearer ";
 	
-	@GetMapping("/all")
+private final UserService userService;
+private final AuthenticationManager authManager;
+private final JwtTokenProvider tokenProvider;	
+	
+@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllUser(){
 		List<User> usersList = userService.getAllUsers();
 		if(usersList.isEmpty()) {
@@ -55,6 +67,30 @@ private final UserService userService;
 	        } catch (UserAlreadyExistsException ex) {
 	            return ResponseEntity.status(HttpStatus.CONFLICT).body(user);
 	        }
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+		
+		// Check if the user entered email instead of username
+		Optional<User> userOptional = userService.getUserByEmail(request.getUsername());
+		if (userOptional.isPresent()) {
+			request.setUsername(userOptional.get().getUsername());
+		}
+		
+		Authentication authentication = authManager.authenticate(
+				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())	
+					);
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		User user = userService.getUserByUsername(request.getUsername()).get();
+		List<String> roles = user.getUserRoles().stream()
+				.map(ur -> ur.getRole().getName()).toList();
+		
+		String token = TOKEN_PREFIX+tokenProvider.generateToken(authentication);
+		
+		return ResponseEntity.ok(new LoginResponse(token,user,roles,true));		
 	}
 	
 	@PutMapping("/update")

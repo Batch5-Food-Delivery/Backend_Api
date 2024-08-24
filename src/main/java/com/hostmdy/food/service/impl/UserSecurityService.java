@@ -12,9 +12,11 @@ import com.hostmdy.food.domain.UserPrincipal;
 import com.hostmdy.food.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserSecurityService implements UserDetailsService {
 	
 	private final UserRepository userRepository;
@@ -29,6 +31,18 @@ public class UserSecurityService implements UserDetailsService {
 		
 		return new UserPrincipal(userOptional.get());
 		
+	}
+	
+	public User loadUserById(Long userId) {
+		Optional<User> userOptional = userRepository.findById(userId);
+		
+		if(userOptional.isEmpty()) {
+			log.info("userId = {} is not found",userId);
+			
+			throw new UsernameNotFoundException("user with id="+userId+" is not found");
+		}
+		
+		return userOptional.get();
 	}
 	
 }
