@@ -7,10 +7,18 @@ import com.hostmdy.food.domain.User;
 
 public interface UserService {
 
-	Optional<User> getUserById(Long id);
 	List<User> getAllUsers();
-	User createUser(User user);
 	Boolean isUsernameExists(String username);
 	Boolean isEmailExists(String email);
 	
+	
+	
+    Optional<User> getUserById(Long userId);
+		
+	User saveUser(User user);
+	
+	User createUser(User user);
+	
+	void deleteUserById(Long userId);
+
 }
