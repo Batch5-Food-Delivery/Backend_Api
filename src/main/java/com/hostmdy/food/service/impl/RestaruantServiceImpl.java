@@ -6,15 +6,20 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.hostmdy.food.domain.Restaruant;
+import com.hostmdy.food.domain.User;
+import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.repository.RestaruantRepository;
+import com.hostmdy.food.service.RestaruantService;
+import com.hostmdy.food.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RestaruantService implements com.hostmdy.food.service.RestaruantService  {
+public class RestaruantServiceImpl implements RestaruantService  {
 	
 	private final RestaruantRepository resRepo;
+	private final UserService userService;
 
 	@Override
 	public Optional<Restaruant> getRestaruantById(Long id) {
@@ -38,6 +43,19 @@ public class RestaruantService implements com.hostmdy.food.service.RestaruantSer
 	public void deleteRestaurnt(Long id) {
 		// TODO Auto-generated method stub
 		resRepo.deleteById(id);
+	}
+
+	@Override
+	public Restaruant getRestaurantByIdAndOwnername(Long id, String ownername) {
+		// TODO Auto-generated method stub
+		User owner = userService.getUserByUsername(ownername);
+		Optional<Restaruant> restaurant = resRepo.findByIdAndOwner(id, owner);
+		if (restaurant.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
+					+ "is not available");
+		}
+		
+		return restaurant.get();
 	}
 
 	

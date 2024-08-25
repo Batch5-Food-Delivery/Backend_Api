@@ -28,8 +28,8 @@ INSERT INTO address (id, township, street, additional_details)
 VALUES (3, 'Downtown', 'Main Street 123', 'Near the central park');
 
 -- Insert a Restaruant record and reference the Address record with address_id = 1
-INSERT INTO restaruant (id, name, profile, available, description, address_id)
-VALUES (2, 'The Gourmet Place', 'High-end dining', TRUE, 'A premium dining experience with exquisite dishes.', 3);
+INSERT INTO restaruant (id, name, profile, available, description, owner_id, address_id)
+VALUES (2, 'The Gourmet Place', 'High-end dining', TRUE, 'A premium dining experience with exquisite dishes.', 1, 3);
 
 
 -- Insert a new UserAddress with a specific ID

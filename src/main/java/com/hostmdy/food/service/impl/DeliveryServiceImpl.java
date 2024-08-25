@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.hostmdy.food.domain.Delivery;
+import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.domain.User;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.repository.DeliveryRepository;
@@ -65,6 +66,18 @@ public class DeliveryServiceImpl implements DeliveryService {
 	public List<Delivery> getCompletedDeliveriesByCustomer(User customer) {
 		// TODO Auto-generated method stub
 		return deliveryRepository.findByCustomerAndCompletedTrue(customer);
+	}
+
+	@Override
+	public List<Delivery> getCurrentDeliveriesByRestaurant(Restaruant restaurant) {
+		// TODO Auto-generated method stub
+		return deliveryRepository.findByRestaurantAndCompletedFalse(restaurant);
+	}
+
+	@Override
+	public List<Delivery> getCompletedDeliveriesByRestaurant(Restaruant restaurant) {
+		// TODO Auto-generated method stub
+		return deliveryRepository.findByRestaurantAndCompletedTrue(restaurant);
 	}
 
 }
