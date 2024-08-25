@@ -19,6 +19,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 	
 	private final DeliveryRepository deliveryRepository;
 	
+	
+	// For Driver
 	@Override
 	public Optional<Delivery> getDeliveryById(Long id) {
 		// TODO Auto-generated method stub
@@ -49,6 +51,20 @@ public class DeliveryServiceImpl implements DeliveryService {
 		Delivery delivery = deliveryOptional.get();
 		delivery.setCompleted(true);
 		return deliveryRepository.save(delivery);
+	}
+	
+	
+	// For Customer
+	@Override
+	public List<Delivery> getCurrentDeliveriesByCustomer(User customer) {
+		// TODO Auto-generated method stub
+		return deliveryRepository.findByCustomerAndCompletedFalse(customer);
+	}
+
+	@Override
+	public List<Delivery> getCompletedDeliveriesByCustomer(User customer) {
+		// TODO Auto-generated method stub
+		return deliveryRepository.findByCustomerAndCompletedTrue(customer);
 	}
 
 }

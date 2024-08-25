@@ -13,4 +13,7 @@ public interface DeliveryService {
 	List<Delivery> getCurrentDeliveriesByDriver(User driver); 
 	List<Delivery> getCompletedDeliveriesByDriver(User driver); 
 	Delivery completeDelivery(User driver, Long deliveryId);
+	
+	List<Delivery> getCurrentDeliveriesByCustomer(User customer);
+	List<Delivery> getCompletedDeliveriesByCustomer(User customer);
 }

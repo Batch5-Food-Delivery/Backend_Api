@@ -18,6 +18,6 @@ public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
 	Optional<Delivery> findByDriverAndId(User driver, Long id);
 	
 	// For User
-	List<Delivery> findByCustomerAndCompletedTrue(User driver);
-	List<Delivery> findByCustomerAndCompletedFalse(User driver);
+	List<Delivery> findByCustomerAndCompletedTrue(User customer);
+	List<Delivery> findByCustomerAndCompletedFalse(User customer);
 }
