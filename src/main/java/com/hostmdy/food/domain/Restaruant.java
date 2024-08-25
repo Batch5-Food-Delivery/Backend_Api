@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
@@ -33,6 +34,11 @@ public class Restaruant {
 	private Boolean available;
 	@Column(columnDefinition = "text")
 	private String description;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+	@JsonIgnore
+    private User owner;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.hostmdy.food.domain.Delivery;
+import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.domain.User;
 
 public interface DeliveryService {
@@ -16,4 +17,7 @@ public interface DeliveryService {
 	
 	List<Delivery> getCurrentDeliveriesByCustomer(User customer);
 	List<Delivery> getCompletedDeliveriesByCustomer(User customer);
+	
+	List<Delivery> getCurrentDeliveriesByRestaurant(Restaruant restaurant);
+	List<Delivery> getCompletedDeliveriesByRestaurant(Restaruant restaurant);
 }

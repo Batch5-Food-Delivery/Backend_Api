@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.hostmdy.food.domain.Restaruant;
+import com.hostmdy.food.domain.User;
 
 
 public interface RestaruantService {
 	
     Optional<Restaruant> getRestaruantById(Long id);
+    
+    Restaruant getRestaurantByIdAndOwnername(Long id, String ownername);
 	
 	List<Restaruant> getAllRestaruant();
 	
