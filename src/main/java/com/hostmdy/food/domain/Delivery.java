@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,6 +59,17 @@ public class Delivery {
 	private boolean completed;
 	private LocalDateTime startedAt;
 	private LocalDateTime completedAt;
+	
+	@PrePersist
+	private void onPersist() {
+		this.startedAt = LocalDateTime.now();
+	}
+	
+	@PreUpdate
+	private void onUpdate() {
+		this.completedAt = LocalDateTime.now();
+	}
+	
 	@Override
 	public String toString() {
 		return "Delivery [id=" + id + ", restaurant=" + restaurant.getAddress() + ", restaurantAddress=" + restaurantAddress

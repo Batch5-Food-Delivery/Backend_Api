@@ -1,19 +1,12 @@
-INSERT INTO users (firstname, lastname, username, email, password, enable, profile)
-VALUES ('John', 'Doe', 'JohnDoe','john.doe@example.com', '$2y$10$mAWrRQZvBDYrRDyVurkA2.7i/kUipiIaHXdEngATSQXM7jPm2SOcm', TRUE, 'Profile description');
-
--- Insert another user with different values
-INSERT INTO users (firstname, lastname, username, email, password, enable, profile)
-VALUES ('Jane', 'Smith', 'JaneSmith', 'jane.smith@example.com', '$2y$10$Hyp6vZP71uLcrEUkcGgJS.69YmO1vlXEhkGCL6SwrLtN4WwZeM9pK', FALSE, 'Another profile description');
-
-INSERT INTO role (id, name) VALUES (1, 'USER');
-INSERT INTO role (id, name) VALUES (2, 'ADMIN');
-INSERT INTO role (id, name) VALUES (3, 'DRIVER');
-
-INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
-INSERT INTO user_roles (user_id, role_id) VALUES (2, 3);
-
 INSERT INTO food (id, name, picture, price, description, available) 
 VALUES (13, 'Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true);
+
+INSERT INTO users (id, firstname, lastname, email, password, enable, profile)
+VALUES (1, 'John', 'Doe', 'john.doe@example.com', 'password123', TRUE, 'Profile description');
+
+-- Insert another user with different values
+INSERT INTO users (id, firstname, lastname, email, password, enable, profile)
+VALUES (2, 'Jane', 'Smith', 'jane.smith@example.com', 'password456', FALSE, 'Another profile description');
 
 -- Insert a new address with a specific ID
 INSERT INTO address (Id, township, street, additional_details)

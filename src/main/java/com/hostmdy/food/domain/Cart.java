@@ -5,36 +5,35 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Food {
-	
+public class Cart {
+
 	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO)
-	private Long Id;
-	private String name;
-	private String picture;
-	private Double price;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private Double grandTotal = 0.0;
 	
-	@Column(columnDefinition = "text")
-	private String description;
-	
-	@OneToMany(mappedBy = "food")
+	@OneToMany(mappedBy = "cart")
 	@JsonIgnore
 	private List<CartItem> cartItems = new ArrayList<>();
-
-	private Boolean available;
+	
+	@OneToOne(mappedBy = "cart")
+	@JsonIgnore
+	private User user;
 	
 }

@@ -15,6 +15,7 @@ public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
 	// For Driver
 	List<Delivery> findByDriverAndCompletedTrue(User driver);
 	List<Delivery> findByDriverAndCompletedFalse(User driver);
+	Optional<Delivery> findByDriverAndId(User driver, Long id);
 	
 	// For User
 	List<Delivery> findByCustomerAndCompletedTrue(User driver);

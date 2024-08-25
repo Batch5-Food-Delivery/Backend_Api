@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hostmdy.food.domain.Delivery;
 import com.hostmdy.food.domain.User;
+import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.repository.DeliveryRepository;
 import com.hostmdy.food.service.DeliveryService;
 
@@ -34,6 +35,20 @@ public class DeliveryServiceImpl implements DeliveryService {
 	public List<Delivery> getCurrentDeliveriesByDriver(User driver) {
 		// TODO Auto-generated method stub
 		return deliveryRepository.findByDriverAndCompletedFalse(driver);
+	}
+
+	@Override
+	public Delivery completeDelivery(User driver, Long deliveryId) {
+		// TODO Auto-generated method stub 
+		
+		Optional<Delivery> deliveryOptional = deliveryRepository.findByDriverAndId(driver, deliveryId);
+		if (deliveryOptional.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("The delivery is not found");
+		}
+		
+		Delivery delivery = deliveryOptional.get();
+		delivery.setCompleted(true);
+		return deliveryRepository.save(delivery);
 	}
 
 }
