@@ -81,7 +81,7 @@ private final JwtTokenProvider tokenProvider;
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
-		User user = userService.getUserByUsername(request.getUsername()).get();
+		User user = userService.getUserByUsername(request.getUsername());
 		List<String> roles = user.getUserRoles().stream()
 				.map(ur -> ur.getRole().getName()).toList();
 		

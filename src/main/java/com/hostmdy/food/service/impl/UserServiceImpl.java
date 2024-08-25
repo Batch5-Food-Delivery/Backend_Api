@@ -3,6 +3,7 @@ package com.hostmdy.food.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +40,14 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public Optional<User> getUserByUsername(String username) {
+	public User getUserByUsername(String username) {
 		// TODO Auto-generated method stub
-		return userRepository.findByUsername(username);
+		Optional<User> user = userRepository.findByUsername(username);
+		if (user.isEmpty()) {
+			throw new UsernameNotFoundException("Username not found");
+		}
+		
+		return user.get();
 	}
 
 	@Override

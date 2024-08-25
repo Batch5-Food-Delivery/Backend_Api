@@ -11,7 +11,7 @@ public interface UserService {
 	Boolean isUsernameExists(String username);
 	Boolean isEmailExists(String email);
 	Optional<User> getUserByEmail(String email);
-	Optional<User> getUserByUsername(String username);
+	User getUserByUsername(String username);
 	
 	
 	
