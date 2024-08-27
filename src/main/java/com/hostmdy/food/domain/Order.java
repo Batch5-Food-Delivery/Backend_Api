@@ -41,4 +41,12 @@ public class Order {
 	private boolean completed;
 	private LocalDateTime startedAt;
 	private LocalDateTime completedAt;
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", restaurant=" + restaurant + ", customer=" + customer + ", destination="
+				+ destination + ", total=" + total + ", completed=" + completed + ", startedAt=" + startedAt
+				+ ", completedAt=" + completedAt + "]";
+	}
+	
+	
 }

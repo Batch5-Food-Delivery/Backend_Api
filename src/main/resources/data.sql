@@ -1,9 +1,9 @@
-INSERT INTO users (firstname, lastname, username, email, password, enable, profile)
-VALUES ('John', 'Doe', 'JohnDoe','john.doe@example.com', '$2y$10$mAWrRQZvBDYrRDyVurkA2.7i/kUipiIaHXdEngATSQXM7jPm2SOcm', TRUE, 'Profile description');
+INSERT INTO users (firstname, lastname, username, email, password, enable, profile, available)
+VALUES ('John', 'Doe', 'JohnDoe','john.doe@example.com', '$2y$10$mAWrRQZvBDYrRDyVurkA2.7i/kUipiIaHXdEngATSQXM7jPm2SOcm', TRUE, 'Profile description', FALSE);
 
 -- Insert another user with different values
-INSERT INTO users (firstname, lastname, username, email, password, enable, profile)
-VALUES ('Jane', 'Smith', 'JaneSmith', 'jane.smith@example.com', '$2y$10$Hyp6vZP71uLcrEUkcGgJS.69YmO1vlXEhkGCL6SwrLtN4WwZeM9pK', FALSE, 'Another profile description');
+INSERT INTO users (firstname, lastname, username, email, password, enable, profile, available)
+VALUES ('Jane', 'Smith', 'JaneSmith', 'jane.smith@example.com', '$2y$10$Hyp6vZP71uLcrEUkcGgJS.69YmO1vlXEhkGCL6SwrLtN4WwZeM9pK', FALSE, 'Another profile description', FALSE);
 
 INSERT INTO role (id, name) VALUES (1, 'USER');
 INSERT INTO role (id, name) VALUES (2, 'ADMIN');
@@ -45,8 +45,37 @@ VALUES (2, 2, 2);
 INSERT INTO orders (id, restaurant_id, customer_id, address_id, total, completed, started_at, completed_at)
 VALUES (1, 2, 1, 1, 29.99, FALSE, '2024-08-12T10:15:30', NULL);
 
-INSERT INTO delivery (id, restaurant_id, restaurant_address_id, order_id, customer_id, driver_id, customer_address_id, completed, started_at, completed_at)
-VALUES (1, 2, 2, 1, 1, 2, 1, FALSE, '2024-08-12T10:15:30', NULL);
+-- Insert an Order record and reference the Restaurant, User, and Address records
+INSERT INTO orders (id, restaurant_id, customer_id, address_id, total, completed, started_at, completed_at)
+VALUES (2, 2, 1, 1, 72.99, FALSE, '2024-08-12T10:15:30', NULL);
+
+-- Insert an Order record and reference the Restaurant, User, and Address records
+INSERT INTO orders (id, restaurant_id, customer_id, address_id, total, completed, started_at, completed_at)
+VALUES (3, 2, 1, 1, 31.99, FALSE, '2024-08-12T10:15:30', NULL);
+
+-- Insert an Order record and reference the Restaurant, User, and Address records
+INSERT INTO orders (id, restaurant_id, customer_id, address_id, total, completed, started_at, completed_at)
+VALUES (4, 2, 1, 1, 62.99, FALSE, '2024-08-12T10:15:30', NULL);
+
+INSERT INTO delivery (
+    restaurant_id, 
+    restaurant_address_id, 
+    order_id, 
+    customer_id, 
+    driver_id, 
+    customer_address_id, 
+    completed, 
+    completed_at
+) VALUES (
+    2,  -- Assuming the restaurant with ID 1 exists
+    3,  -- Assuming the address with ID 2 exists
+    1,  -- Assuming the order with ID 1 exists
+    1,  -- Assuming the customer (user) with ID 3 exists
+    2,  -- Assuming the driver (user) with ID 4 exists
+    2,  -- Assuming the customer address with ID 2 exists
+    false,  -- Assuming the delivery is not completed initially
+    NULL  -- completed_at is initially NULL
+);
 
 INSERT INTO food (id, name, picture, price, description, available) 
 VALUES (15, 'Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true);

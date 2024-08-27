@@ -1,17 +1,23 @@
 package com.hostmdy.food.service.impl;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hostmdy.food.domain.Delivery;
+import com.hostmdy.food.domain.Order;
 import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.domain.User;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.repository.DeliveryRepository;
+import com.hostmdy.food.repository.OrderRepository;
+import com.hostmdy.food.repository.UserRepository;
 import com.hostmdy.food.service.DeliveryService;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,7 +25,9 @@ import lombok.RequiredArgsConstructor;
 public class DeliveryServiceImpl implements DeliveryService {
 	
 	private final DeliveryRepository deliveryRepository;
-	
+	private final OrderRepository orderRepository;
+	private final EntityManager entityManager;
+	private final UserRepository userRepository;
 	
 	// For Driver
 	@Override
@@ -68,6 +76,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 		return deliveryRepository.findByCustomerAndCompletedTrue(customer);
 	}
 
+	
+	// For Restaurant
 	@Override
 	public List<Delivery> getCurrentDeliveriesByRestaurant(Restaruant restaurant) {
 		// TODO Auto-generated method stub
@@ -78,6 +88,23 @@ public class DeliveryServiceImpl implements DeliveryService {
 	public List<Delivery> getCompletedDeliveriesByRestaurant(Restaruant restaurant) {
 		// TODO Auto-generated method stub
 		return deliveryRepository.findByRestaurantAndCompletedTrue(restaurant);
+	}
+	
+	@Override
+	@Transactional
+	public Delivery createDelivery(Restaruant restaurant, Order order, Long driverId) {
+		
+		User driver = userRepository.findById(driverId).get();
+		
+		Delivery delivery = new Delivery();
+		delivery.setRestaurant(restaurant);
+		delivery.setRestaurantAddress(restaurant.getAddress());
+		delivery.setOrder(order);
+		delivery.setCustomer(order.getCustomer());
+		delivery.setDestination(order.getDestination());
+		delivery.setDriver(driver);
+		
+		return deliveryRepository.save(delivery);
 	}
 
 }

@@ -8,6 +8,7 @@ import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.domain.Region;
 import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.repository.FoodRepository;
+import com.hostmdy.food.repository.OrderRepository;
 import com.hostmdy.food.repository.RegionRepository;
 import com.hostmdy.food.repository.RestaruantRepository;
 
