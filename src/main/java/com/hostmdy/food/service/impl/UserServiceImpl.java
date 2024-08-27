@@ -103,6 +103,9 @@ public class UserServiceImpl implements UserService{
 		user.getUserRoles().add(userRoles);
 		role.getUserRoles().add(userRoles);
 		
+		// Available status for Driver Role
+		user.setAvailable(false);
+		
 		// Configuring Cart
 		Cart cart = new Cart();
 		cart.setUser(user);

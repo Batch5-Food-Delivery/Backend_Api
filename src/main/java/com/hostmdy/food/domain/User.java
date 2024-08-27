@@ -47,6 +47,9 @@ public class User {
 	@JsonIgnore
 	private Set<UserRoles> userRoles = new HashSet<>();
 	
+	// This field is only relavent for DRIVER role
+	private Boolean available;
+	
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
