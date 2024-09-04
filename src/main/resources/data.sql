@@ -12,9 +12,6 @@ INSERT INTO role (id, name) VALUES (3, 'DRIVER');
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO user_roles (user_id, role_id) VALUES (2, 3);
 
-INSERT INTO food (id, name, picture, price, description, available) 
-VALUES (13, 'Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true);
-
 -- Insert a new address with a specific ID
 INSERT INTO address (Id, township, street, additional_details)
 VALUES (1, 'Downtown', 'Main Street 123', 'Near the central park');
@@ -137,6 +134,22 @@ INSERT INTO delivery (
     NULL  -- completed_at is initially NULL
 );
 
-INSERT INTO food (id, name, picture, price, description, available) 
-VALUES (15, 'Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true);
+
+INSERT INTO menu (name, restaurant_id)
+VALUES ('Menu1', 2);
+
+INSERT INTO menu (name, restaurant_id)
+VALUES ('Menu2', 2);
+
+INSERT INTO food (name, picture, price, description, available, menu_id) 
+VALUES ('Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1);
+
+INSERT INTO food (name, picture, price, description, available, menu_id) 
+VALUES ('Sample Product2', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1);
+
+INSERT INTO food (name, picture, price, description, available, menu_id) 
+VALUES ('Sample Product3', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2);
+
+INSERT INTO food (name, picture, price, description, available, menu_id) 
+VALUES ('Sample Product4', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2);
 

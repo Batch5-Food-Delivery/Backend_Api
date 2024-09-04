@@ -42,6 +42,7 @@ public class Restaruant {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	@JsonIgnore
 	private Address address;
 	 
 }

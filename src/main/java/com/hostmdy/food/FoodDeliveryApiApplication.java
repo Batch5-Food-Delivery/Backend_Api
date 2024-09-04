@@ -35,7 +35,7 @@ public class FoodDeliveryApiApplication implements CommandLineRunner {
 		food1.setName("test");
 		food1.setPicture("test");
 		food1.setPrice(900.3);
-		foodRepository.save(food1);
+		//foodRepository.save(food1);
 		
 		
 		Restaruant rest1 = new Restaruant();

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/restaruant")
+@RequestMapping("/restaurant")
+@CrossOrigin("http://localhost3000")
 public class RestaruantController {
 	
    private final RestaruantService resService;
@@ -33,7 +35,7 @@ public class RestaruantController {
  	}
 	
 	@GetMapping("/{resId}")
-	public ResponseEntity<Restaruant> getFoodById(@PathVariable Long resId){
+	public ResponseEntity<Restaruant> getRestaurantById(@PathVariable Long resId){
 		Optional<Restaruant> res= resService.getRestaruantById(resId);
 		if(res.isEmpty()) {
 			return ResponseEntity.status(404).build();
