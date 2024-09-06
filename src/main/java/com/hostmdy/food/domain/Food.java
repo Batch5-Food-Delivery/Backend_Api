@@ -23,18 +23,21 @@ public class Food {
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
-	private Long Id;
+	private Long id;
 	private String name;
 	private String picture;
 	private Double price;
 	
 	@Column(columnDefinition = "text")
 	private String description;
+	private String category;
+	private Double discount;
 	
 	@OneToMany(mappedBy = "food")
 	@JsonIgnore
 	private List<CartItem> cartItems = new ArrayList<>();
 
 	private Boolean available;
+	
 	
 }

@@ -1,5 +1,5 @@
-INSERT INTO food (id, name, picture, price, description, available) 
-VALUES (13, 'Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true);
+INSERT INTO food (id, name, picture, price, description,category,discount,available) 
+VALUES (13, 'Sample Product', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlsvIw8cLOYYqJT7Bud8mjaybsLL9N-QdSlQ&s', 19.99, 'This is a sample product description.','noodle',0.0, true);
 
 INSERT INTO users (id, firstname, lastname, email, password, enable, profile)
 VALUES (1, 'John', 'Doe', 'john.doe@example.com', 'password123', TRUE, 'Profile description');
@@ -41,6 +41,6 @@ VALUES (1, 2, 1, 1, 29.99, FALSE, '2024-08-12T10:15:30', NULL);
 INSERT INTO delivery (id, restaurant_id, restaurant_address_id, order_id, customer_id, driver_id, customer_address_id, completed, started_at, completed_at)
 VALUES (1, 2, 2, 1, 1, 2, 1, FALSE, '2024-08-12T10:15:30', NULL);
 
-INSERT INTO food (id, name, picture, price, description, available) 
-VALUES (15, 'Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true);
+INSERT INTO food (id, name, picture, price, description,category,discount, available) 
+VALUES (15, 'Sample Product', 'https://cdn.media.amplience.net/i/japancentre/recipe-81-tonjiru-pork-soup/recipe-81-tonjiru-pork-soup?$poi$&w=700&h=410&sm=c&fmt=auto', 19.99, 'This is a sample product description.','soup',50.0, true);
 

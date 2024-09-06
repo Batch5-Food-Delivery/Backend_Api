@@ -28,13 +28,7 @@ public class FoodDeliveryApiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		Food food1 = new Food();
-		food1.setAvailable(true);
-		food1.setDescription("This is Test");
-		food1.setName("test");
-		food1.setPicture("test");
-		food1.setPrice(900.3);
-		foodRepository.save(food1);
+		
 		
 		
 		Restaruant rest1 = new Restaruant();
