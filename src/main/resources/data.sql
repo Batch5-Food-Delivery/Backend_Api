@@ -141,15 +141,15 @@ VALUES ('Menu1', 2);
 INSERT INTO menu (name, restaurant_id)
 VALUES ('Menu2', 2);
 
-INSERT INTO food (name, picture, price, description, available, menu_id) 
-VALUES ('Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1);
+INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
+VALUES ('Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1, 2);
 
-INSERT INTO food (name, picture, price, description, available, menu_id) 
-VALUES ('Sample Product2', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1);
+INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
+VALUES ('Sample Product2', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1, 2);
 
-INSERT INTO food (name, picture, price, description, available, menu_id) 
-VALUES ('Sample Product3', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2);
+INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
+VALUES ('Sample Product3', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2, 2);
 
-INSERT INTO food (name, picture, price, description, available, menu_id) 
-VALUES ('Sample Product4', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2);
+INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
+VALUES ('Sample Product4', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2, 2);
 

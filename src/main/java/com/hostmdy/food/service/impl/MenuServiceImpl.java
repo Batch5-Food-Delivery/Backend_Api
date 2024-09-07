@@ -33,4 +33,10 @@ public class MenuServiceImpl implements MenuService {
 		return menuRepository.findByRestaurant(restaurantOptional.get());
 	}
 
+	@Override
+	public Menu createNewMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		return menuRepository.save(menu);
+	}
+
 }

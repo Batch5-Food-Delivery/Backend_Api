@@ -1,5 +1,6 @@
 package com.hostmdy.food.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.service.FoodService;
+import com.hostmdy.food.service.RestaruantService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class FoodController {
 	
 	private final FoodService foodService;
+	private final RestaruantService restaurantService;
 
 	@GetMapping("/all")
 	public List<Food> getAllFoods(){
@@ -44,7 +47,10 @@ public class FoodController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<Food> createFood(@RequestBody Food food) {
+	public ResponseEntity<Food> createFood(@RequestBody Food food, Principal principal) {
+		
+		restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
+		
 		Food createdFood = foodService.saveFood(food);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
 	}

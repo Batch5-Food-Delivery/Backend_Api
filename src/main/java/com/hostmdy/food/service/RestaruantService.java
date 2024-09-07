@@ -19,5 +19,5 @@ public interface RestaruantService {
 	
 	void deleteRestaurnt(Long id);
 
-
+	void validateRestaurantOwner(Long restaurantId, String ownername);
 }
