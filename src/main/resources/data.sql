@@ -77,6 +77,66 @@ INSERT INTO delivery (
     NULL  -- completed_at is initially NULL
 );
 
+INSERT INTO delivery (
+    restaurant_id, 
+    restaurant_address_id, 
+    order_id, 
+    customer_id, 
+    driver_id, 
+    customer_address_id, 
+    completed, 
+    completed_at
+) VALUES (
+    2,  -- Assuming the restaurant with ID 1 exists
+    3,  -- Assuming the address with ID 2 exists
+    2,  -- Assuming the order with ID 1 exists
+    1,  -- Assuming the customer (user) with ID 3 exists
+    2,  -- Assuming the driver (user) with ID 4 exists
+    2,  -- Assuming the customer address with ID 2 exists
+    false,  -- Assuming the delivery is not completed initially
+    NULL  -- completed_at is initially NULL
+);
+
+INSERT INTO delivery (
+    restaurant_id, 
+    restaurant_address_id, 
+    order_id, 
+    customer_id, 
+    driver_id, 
+    customer_address_id, 
+    completed, 
+    completed_at
+) VALUES (
+    2,  -- Assuming the restaurant with ID 1 exists
+    3,  -- Assuming the address with ID 2 exists
+    3,  -- Assuming the order with ID 1 exists
+    1,  -- Assuming the customer (user) with ID 3 exists
+    2,  -- Assuming the driver (user) with ID 4 exists
+    2,  -- Assuming the customer address with ID 2 exists
+    false,  -- Assuming the delivery is not completed initially
+    NULL  -- completed_at is initially NULL
+);
+
+INSERT INTO delivery (
+    restaurant_id, 
+    restaurant_address_id, 
+    order_id, 
+    customer_id, 
+    driver_id, 
+    customer_address_id, 
+    completed, 
+    completed_at
+) VALUES (
+    2,  -- Assuming the restaurant with ID 1 exists
+    3,  -- Assuming the address with ID 2 exists
+    4,  -- Assuming the order with ID 1 exists
+    1,  -- Assuming the customer (user) with ID 3 exists
+    2,  -- Assuming the driver (user) with ID 4 exists
+    2,  -- Assuming the customer address with ID 2 exists
+    false,  -- Assuming the delivery is not completed initially
+    NULL  -- completed_at is initially NULL
+);
+
 INSERT INTO food (id, name, picture, price, description, available) 
 VALUES (15, 'Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true);
 

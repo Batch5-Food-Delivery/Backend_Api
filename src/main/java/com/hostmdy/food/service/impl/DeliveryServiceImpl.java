@@ -1,6 +1,7 @@
 package com.hostmdy.food.service.impl;
 
 import java.lang.StackWalker.Option;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import com.hostmdy.food.repository.DeliveryRepository;
 import com.hostmdy.food.repository.OrderRepository;
 import com.hostmdy.food.repository.UserRepository;
 import com.hostmdy.food.service.DeliveryService;
+import com.hostmdy.food.service.UserService;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +27,6 @@ import lombok.RequiredArgsConstructor;
 public class DeliveryServiceImpl implements DeliveryService {
 	
 	private final DeliveryRepository deliveryRepository;
-	private final OrderRepository orderRepository;
-	private final EntityManager entityManager;
 	private final UserRepository userRepository;
 	
 	// For Driver
@@ -49,10 +49,16 @@ public class DeliveryServiceImpl implements DeliveryService {
 	}
 
 	@Override
-	public Delivery completeDelivery(User driver, Long deliveryId) {
+	public Delivery completeDelivery(Long deliveryId, Principal principal) {
 		// TODO Auto-generated method stub 
+		User user = userRepository.findByUsername(principal.getName()).get();
+		Optional<Delivery> deliveryOptional;
+		if (user.isAdmin()) {
+			deliveryOptional = deliveryRepository.findById(deliveryId);
+		} else {
+			deliveryOptional = deliveryRepository.findByDriverAndId(user, deliveryId);
+		}
 		
-		Optional<Delivery> deliveryOptional = deliveryRepository.findByDriverAndId(driver, deliveryId);
 		if (deliveryOptional.isEmpty()) {
 			throw new DatabaseRecordNotFoundException("The delivery is not found");
 		}

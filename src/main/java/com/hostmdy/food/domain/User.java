@@ -69,5 +69,9 @@ public class User {
 		this.updatedAt = LocalDateTime.now();
 	}
 
+	public boolean isAdmin() {
+        return userRoles.stream()
+                    .anyMatch(ur -> ur.getRole().getName().equals("ADMIN"));
+    }
 	
 }
