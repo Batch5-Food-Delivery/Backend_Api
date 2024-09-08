@@ -34,6 +34,16 @@ public class Food {
 	
 	@Column(columnDefinition = "text")
 	private String description;
+	private String category;
+	private Double discount;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_id", nullable = false)
+    private Menu menu;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaruant restaurant;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
@@ -48,5 +58,6 @@ public class Food {
 	private List<CartItem> cartItems = new ArrayList<>();
 
 	private Boolean available;
+	
 	
 }

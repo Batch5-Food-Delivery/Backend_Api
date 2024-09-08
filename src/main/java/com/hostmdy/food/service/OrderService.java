@@ -7,4 +7,5 @@ import com.hostmdy.food.domain.User;
 public interface OrderService {
 
 	Order getOrderByRestaurantAndId(Restaruant restaurant, Long OrderId);
+	Order saveOrder(Order order);
 }

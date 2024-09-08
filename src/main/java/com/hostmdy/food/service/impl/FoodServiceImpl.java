@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.repository.FoodRepository;
@@ -13,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-
 public class FoodServiceImpl implements FoodService {
 	
 	private final FoodRepository foodRepository;
@@ -38,6 +38,7 @@ public class FoodServiceImpl implements FoodService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteFood(Long id) {
 		// TODO Auto-generated method stub
 		 foodRepository.deleteById(id);
