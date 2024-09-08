@@ -24,9 +24,27 @@ VALUES (2, 'Uptown', 'Second Avenue 456', 'Close to the shopping mall');
 INSERT INTO address (id, township, street, additional_details)
 VALUES (3, 'Downtown', 'Main Street 123', 'Near the central park');
 
+-- Insert regions
+INSERT INTO region (name) VALUES ('Mandalay');
+INSERT INTO region (name) VALUES ('Yangon');
+INSERT INTO region (name) VALUES ('NayPyiDaw');
+INSERT INTO region (name) VALUES ('Pyay');
+INSERT INTO region (name) VALUES ('Monywa');
+INSERT INTO region (name) VALUES ('TaungGyi');
+
+-- Addresses for restaurants
+INSERT INTO address (id, township, street, additional_details)
+VALUES (4, 'Downtown', 'Main Street 73', 'Near the central park');
+
+INSERT INTO address (id, township, street, additional_details)
+VALUES (5, 'Downtown', 'Main Street 73', 'Near the river');
+
 -- Insert a Restaruant record and reference the Address record with address_id = 1
-INSERT INTO restaruant (id, name, profile, available, description, owner_id, address_id)
-VALUES (2, 'The Gourmet Place', 'High-end dining', TRUE, 'A premium dining experience with exquisite dishes.', 1, 3);
+INSERT INTO restaruant (name, profile, available, description, owner_id, address_id, region_id)
+VALUES ('This is test', 'Traditional restaurant', TRUE, 'A premium dining experience with burmese dishes.', 1, 4, 1);
+
+INSERT INTO restaruant (name, profile, available, description, owner_id, address_id, region_id)
+VALUES ('The Gourmet Place', 'High-end dining', TRUE, 'A premium dining experience with exquisite dishes.', 1, 5, 1);
 
 
 -- Insert a new UserAddress with a specific ID
@@ -141,15 +159,23 @@ VALUES ('Menu1', 2);
 INSERT INTO menu (name, restaurant_id)
 VALUES ('Menu2', 2);
 
-INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
-VALUES ('Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1, 2);
+INSERT INTO menu (name, restaurant_id)
+VALUES ('NewMenu', 1);
 
-INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
-VALUES ('Sample Product2', 'sample-image.png', 19.99, 'This is a sample product description.', true, 1, 2);
+INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
+VALUES ('Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', 'noodle', 0.0, true, 1, 2);
 
-INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
-VALUES ('Sample Product3', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2, 2);
+INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
+VALUES ('Sample Product2', 'sample-image.png', 19.99, 'This is a sample product description.', 'noodle', 0.0, true, 1, 2);
 
-INSERT INTO food (name, picture, price, description, available, menu_id, restaurant_id) 
-VALUES ('Sample Product4', 'sample-image.png', 29.99, 'This is a sample product description.', true, 2, 2);
+INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
+VALUES ('Sample Product3', 'sample-image.png', 29.99, 'This is a sample product description.', 'soup', 0.0, true, 2, 2);
 
+INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
+VALUES ('Sample Product4', 'sample-image.png', 29.99, 'This is a sample product description.', 'soup', 0.0, true, 2, 2);
+
+INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
+VALUES ('Sample Product', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlsvIw8cLOYYqJT7Bud8mjaybsLL9N-QdSlQ&s', 19.99, 'This is a sample product description.','noodle',0.0, true, 3, 1);
+
+INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
+VALUES ('Sample Product', 'https://cdn.media.amplience.net/i/japancentre/recipe-81-tonjiru-pork-soup/recipe-81-tonjiru-pork-soup?$poi$&w=700&h=410&sm=c&fmt=auto', 19.99, 'This is a sample product description.','soup',50.0, true, 3, 1);

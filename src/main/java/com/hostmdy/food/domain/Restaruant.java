@@ -27,7 +27,7 @@ import lombok.Setter;
 public class Restaruant {
 	
 	@Id
-	@GeneratedValue ( strategy = GenerationType.AUTO)
+	@GeneratedValue ( strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String profile;
@@ -44,5 +44,10 @@ public class Restaruant {
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	@JsonIgnore
 	private Address address;
+	
+	@ManyToOne
+	@JoinColumn(name = "region_id")
+	@JsonIgnore
+	private Region region;
 	 
 }

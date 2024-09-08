@@ -37,18 +37,6 @@ public class FoodDeliveryApiApplication implements CommandLineRunner {
 		food1.setPrice(900.3);
 		//foodRepository.save(food1);
 		
-		
-		Restaruant rest1 = new Restaruant();
-		rest1.setAvailable(true);
-		rest1.setDescription("This is Test");
-		rest1.setName("Test");
-		rest1.setProfile("This is test profile");
-		resRepository.save(rest1);
-		
-		Region reg1 = new Region();
-		reg1.setRegion("Mandalay");
-		regionRepository.save(reg1);
-		
 	}
 
 }

@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/menu")
-@CrossOrigin("http://localhost3000")
+@CrossOrigin("http://localhost:3000")
 public class MenuController {
 
 	private final MenuService menuService;

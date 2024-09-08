@@ -45,14 +45,6 @@ public class Food {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaruant restaurant;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id", nullable = false)
-    private Menu menu;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    private Restaruant restaurant;
-	
 	@OneToMany(mappedBy = "food")
 	@JsonIgnore
 	private List<CartItem> cartItems = new ArrayList<>();

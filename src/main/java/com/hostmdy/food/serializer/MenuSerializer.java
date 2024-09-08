@@ -31,6 +31,9 @@ public class MenuSerializer extends JsonSerializer<Menu> {
             gen.writeNumberField("price", food.getPrice());
             gen.writeStringField("description", food.getDescription());
             gen.writeBooleanField("available", food.getAvailable());
+            gen.writeStringField("picture", food.getPicture());
+            gen.writeStringField("category", food.getCategory());
+            gen.writeNumberField("discount", food.getDiscount());
             gen.writeEndObject();
         }
         gen.writeEndArray();
