@@ -28,7 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonSerialize(using = MenuSerializer.class)
+//@JsonSerialize(using = MenuSerializer.class)
 public class Menu {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

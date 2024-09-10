@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.hostmdy.food.controller.RestaurantDeliveryController;
 
 import jakarta.persistence.Column;
@@ -39,10 +40,12 @@ public class Food {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
+	@JsonIncludeProperties({"id"})
     private Menu menu;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
+	@JsonIncludeProperties({"id"})
     private Restaruant restaurant;
 	
 	@OneToMany(mappedBy = "food")

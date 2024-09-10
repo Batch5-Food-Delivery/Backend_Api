@@ -49,7 +49,7 @@ public class FoodController {
 	@PostMapping("/create")
 	public ResponseEntity<Food> createFood(@RequestBody Food food, Principal principal) {
 		
-		restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
+		//restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
 		
 		Food createdFood = foodService.saveFood(food);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
