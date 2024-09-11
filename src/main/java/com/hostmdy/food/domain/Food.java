@@ -27,7 +27,7 @@ import lombok.Setter;
 public class Food {
 	
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@GeneratedValue( strategy = GenerationType.AUTO)
 	private Long Id;
 	private String name;
 	private String picture;

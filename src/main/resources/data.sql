@@ -162,7 +162,7 @@ VALUES ('Menu2', 2);
 INSERT INTO menu (name, restaurant_id)
 VALUES ('NewMenu', 1);
 
-INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
+/*INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
 VALUES ('Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', 'noodle', 0.0, true, 1, 2);
 
 INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
@@ -179,3 +179,4 @@ VALUES ('Sample Product', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9G
 
 INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
 VALUES ('Sample Product', 'https://cdn.media.amplience.net/i/japancentre/recipe-81-tonjiru-pork-soup/recipe-81-tonjiru-pork-soup?$poi$&w=700&h=410&sm=c&fmt=auto', 19.99, 'This is a sample product description.','soup',50.0, true, 3, 1);
+*/
