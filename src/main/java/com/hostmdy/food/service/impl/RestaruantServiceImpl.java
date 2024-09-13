@@ -20,7 +20,12 @@ public class RestaruantServiceImpl implements RestaruantService  {
 	
 	private final RestaruantRepository resRepo;
 	private final UserService userService;
-
+	
+	private User getUser(String userName) {
+		User user = userService.getUserByUsername(userName);
+		return user;
+	}
+	
 	@Override
 	public Optional<Restaruant> getRestaruantById(Long id) {
 		// TODO Auto-generated method stub
@@ -34,9 +39,12 @@ public class RestaruantServiceImpl implements RestaruantService  {
 	}
 
 	@Override
-	public Restaruant saveRestaruant(Restaruant restaruant) {
+	public Restaruant saveRestaruant(Restaruant restaruant,String userName) {
 		// TODO Auto-generated method stub
+		User user = getUser(userName);
+		restaruant.setOwner(user);
 		return resRepo.save(restaruant);
+		
 	}
 
 	@Override
@@ -48,26 +56,38 @@ public class RestaruantServiceImpl implements RestaruantService  {
 	@Override
 	public Restaruant getRestaurantByIdAndOwnername(Long id, String ownername) {
 		// TODO Auto-generated method stub
-		User owner = userService.getUserByUsername(ownername);
-		Optional<Restaruant> restaurant = resRepo.findByIdAndOwner(id, owner);
-		if (restaurant.isEmpty()) {
-			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
-					+ "is not available");
-		}
-		
-		return restaurant.get();
+		return null;
 	}
-	
+
 	@Override
 	public void validateRestaurantOwner(Long restaurantId, String ownername) {
+		// TODO Auto-generated method stub
 		
-		User owner = userService.getUserByUsername(ownername);
-		Optional<Restaruant> restaurant = resRepo.findByIdAndOwner(restaurantId, owner);
-		if (restaurant.isEmpty()) {
-			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
-					+ "is not available");
-		}
 	}
+
+//	@Override
+//	public Restaruant getRestaurantByIdAndOwnername(Long id, String ownername) {
+//		// TODO Auto-generated method stub
+//		User owner = userService.getUserByUsername(ownername);
+//		Optional<Restaruant> restaurant = resRepo.findByIdAndOwner(id, owner);
+//		if (restaurant.isEmpty()) {
+//			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
+//					+ "is not available");
+//		}
+//		
+//		return restaurant.get();
+//	}
+	
+//	@Override
+//	public void validateRestaurantOwner(Long restaurantId, String ownername) {
+//		
+//		User owner = userService.getUserByUsername(ownername);
+//		Optional<Restaruant> restaurant = resRepo.findByIdAndOwner(restaurantId, owner);
+//		if (restaurant.isEmpty()) {
+//			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
+//					+ "is not available");
+//		}
+//	}
 
 	
 }

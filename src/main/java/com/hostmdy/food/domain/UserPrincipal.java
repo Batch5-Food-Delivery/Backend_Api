@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import com.hostmdy.food.domain.security.Authority;
 
+import jakarta.persistence.Entity;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

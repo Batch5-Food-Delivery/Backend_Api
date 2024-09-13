@@ -58,6 +58,10 @@ public class User {
 	@JoinColumn(name = "cart_id")
 	private Cart cart;
 	
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "owner")
+	@JsonIgnore
+	private Restaruant res;
+	
 	@PrePersist
 	private void onPersist() {
 		this.createdAt = LocalDateTime.now();

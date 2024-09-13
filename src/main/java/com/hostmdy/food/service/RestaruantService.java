@@ -15,7 +15,8 @@ public interface RestaruantService {
 	
 	List<Restaruant> getAllRestaruant();
 	
-	Restaruant saveRestaruant(Restaruant restaruant);
+	Restaruant saveRestaruant(Restaruant restaruant,String userName);
+	
 	
 	void deleteRestaurnt(Long id);
 

@@ -63,9 +63,9 @@ private final JwtTokenProvider tokenProvider;
 	@PostMapping("/create")
 	public ResponseEntity<User> createUser(@RequestBody User user){
 
-		System.out.println("Im in the controller");
+		
 	     User newUser = userService.createUser(user);
-	     return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+	     return ResponseEntity.status(201).body(newUser);
 	}
 	
 	@PostMapping("/login")

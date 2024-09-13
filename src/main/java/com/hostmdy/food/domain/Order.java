@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,14 +44,17 @@ public class Order {
 	@JoinColumn(name = "address_id") // Foreign key column
 	private Address destination;
 	
-	private Double total;
-	private boolean completed;
+	
+	
+	
+	private Double totalPrice;
+	private boolean orderStatus;
 	private LocalDateTime startedAt;
 	private LocalDateTime completedAt;
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", restaurant=" + restaurant + ", customer=" + customer + ", destination="
-				+ destination + ", total=" + total + ", completed=" + completed + ", startedAt=" + startedAt
+				+ destination + ", total=" + totalPrice + ", completed=" + orderStatus + ", startedAt=" + startedAt
 				+ ", completedAt=" + completedAt + "]";
 	}
 	

@@ -35,13 +35,12 @@ public class Restaruant {
 	@Column(columnDefinition = "text")
 	private String description;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-	@JsonIgnore
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner_id",unique=true)
     private User owner;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	@JoinColumn(name = "address_id", referencedColumnName = "id", unique=true)
 	@JsonIgnore
 	private Address address;
 	

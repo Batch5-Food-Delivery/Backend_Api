@@ -23,6 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest.H2ConsoleRequestMatcher;
 
 import com.hostmdy.food.service.impl.UserSecurityService;
 
@@ -56,15 +57,18 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+			.csrf(customizer -> customizer.ignoringRequestMatchers("/h2-console/**"))
 			.csrf(customizer -> customizer.disable())
-			.authorizeHttpRequests(auth -> auth
-					.requestMatchers("/user/login").permitAll()
-					.requestMatchers("/user/create").permitAll()
-					.requestMatchers(HttpMethod.GET, "/restaurant/**").permitAll() 
-					.requestMatchers(HttpMethod.GET, "/menu/**").permitAll() 
-					.anyRequest().authenticated())
-			.httpBasic(Customizer.withDefaults())
+			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.authorizeHttpRequests(auth -> auth
+					.requestMatchers("/user/create","/user/login").permitAll()
+					.requestMatchers("/restaurant/**").permitAll() 
+					.requestMatchers("/menu/**").permitAll() 
+					.requestMatchers("/h2-console/**").permitAll()
+					.anyRequest().authenticated())
+			
+			
 			.addFilterBefore(authFilter(),UsernamePasswordAuthenticationFilter.class);
 
 		

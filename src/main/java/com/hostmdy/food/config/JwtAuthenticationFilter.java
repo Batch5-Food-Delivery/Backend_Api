@@ -33,31 +33,44 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			String token = getTokenFromRequest(request);
-			
-			if(StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
-				Long userId = tokenProvider.getUserIdFromToken(token);
-				UserPrincipal userDetails = new UserPrincipal(userSecurityService.loadUserById(userId));
-				
-				UsernamePasswordAuthenticationToken authToken = 
-					UsernamePasswordAuthenticationToken.authenticated(userDetails, null, userDetails.getAuthorities());
-				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				
-				SecurityContextHolder.getContext().setAuthentication(authToken);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			log.error("token filter is failed");
-			System.out.println(e.getMessage());
-		}
 		
-		filterChain.doFilter(request, response);
+
+		 String path = request.getRequestURI();
+	        if (request.getRequestURI().startsWith("/h2-console") || path.equals("/user/login") || path.equals("/user/create") || path.equals("/h2-console/")) {
+	            filterChain.doFilter(request, response);
+	            return;
+	      }
+	    else {
+	    	try {
+				
+				
+		        
+				String token = getTokenFromRequest(request);
+				
+				if(StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
+					Long userId = tokenProvider.getUserIdFromToken(token);
+					UserPrincipal userDetails = new UserPrincipal(userSecurityService.loadUserById(userId));
+					
+					UsernamePasswordAuthenticationToken authToken = 
+						UsernamePasswordAuthenticationToken.authenticated(userDetails, null, userDetails.getAuthorities());
+					authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					
+					SecurityContextHolder.getContext().setAuthentication(authToken);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				log.error("token filter is failed");
+				System.out.println(e.getMessage());
+			}
+			
+			doFilter(request, response, filterChain);
+	    }
 		
 	}
 	
 	private String getTokenFromRequest(HttpServletRequest request) {
 		String rawToken = request.getHeader(HEADER);
+		
 		if(StringUtils.hasText(rawToken) && rawToken.startsWith(TOKEN_PREFIX)) {
 			return rawToken.substring(7,rawToken.length());
 		}else {

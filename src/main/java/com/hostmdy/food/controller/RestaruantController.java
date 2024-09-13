@@ -1,5 +1,6 @@
 package com.hostmdy.food.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class RestaruantController {
 	
    private final RestaruantService resService;
+   
 	
 	
 	@GetMapping("/all")
@@ -44,22 +46,23 @@ public class RestaruantController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<Restaruant> createFood(@RequestBody Restaruant res) {
-		Restaruant createdRes = resService.saveRestaruant(res);
+	public ResponseEntity<Restaruant> createRes(@RequestBody Restaruant res,Principal principal) {
+		Restaruant createdRes = resService.saveRestaruant(res,principal.getName());
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdRes);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Restaruant> updateFood(@RequestBody Restaruant res){
+	public ResponseEntity<Restaruant> updateRes(@RequestBody Restaruant res,Principal principal){
 		
 		if(res.getId() == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(resService.saveRestaruant(res));
+		return ResponseEntity.status(HttpStatus.OK).body(resService.saveRestaruant(res,principal.getName()));
 	}
 	
 	@DeleteMapping("/{resId}/delete")
-	public ResponseEntity<Long> deleteFood(@PathVariable Long resId){
+	public ResponseEntity<Long> deleteRes(@PathVariable Long resId){
 		
 		
 		Optional<Restaruant> res = resService.getRestaruantById(resId);

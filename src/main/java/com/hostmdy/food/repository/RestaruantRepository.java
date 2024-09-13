@@ -9,5 +9,5 @@ import com.hostmdy.food.domain.User;
 
 public interface RestaruantRepository extends CrudRepository<Restaruant, Long> {
 
-	Optional<Restaruant> findByIdAndOwner(Long id, User owner);
+
 }
