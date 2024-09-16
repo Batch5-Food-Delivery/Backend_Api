@@ -62,7 +62,7 @@ public class SecurityConfig {
 					.requestMatchers("/user/create").permitAll()
 					.requestMatchers(HttpMethod.GET, "/restaurant/**").permitAll() 
 					.requestMatchers(HttpMethod.GET, "/menu/**").permitAll() 
-					.requestMatchers(HttpMethod.POST, "/food/**").permitAll()
+					.requestMatchers(HttpMethod.GET, "/food/**").permitAll()
 					.anyRequest().authenticated())
 			.httpBasic(Customizer.withDefaults())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

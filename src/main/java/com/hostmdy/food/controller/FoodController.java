@@ -60,14 +60,16 @@ public class FoodController {
 	@PostMapping("/create")
 	public ResponseEntity<Food> createFood(@RequestBody Food food, Principal principal) {
 		
-		//restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
+		restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
 		
 		Food createdFood = foodService.saveFood(food);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Food> updateFood(@RequestBody Food food){
+	public ResponseEntity<Food> updateFood(@RequestBody Food food, Principal principal){
+		
+		restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
 		
 		if(food.getId() == null) {
 			return ResponseEntity.badRequest().build();
@@ -76,14 +78,16 @@ public class FoodController {
 	}
 	
 	@DeleteMapping("/{foodId}/delete")
-	public ResponseEntity<Long> deleteFood(@PathVariable Long foodId){
-		
+	public ResponseEntity<Long> deleteFood(@PathVariable Long foodId, Principal principal){
 		
 		Optional<Food> food = foodService.getFoodById(foodId);
 		
 		if(food.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
+		
+		restaurantService.validateRestaurantOwner(food.get().getRestaurant().getId(), principal.getName());
+		
 		foodService.deleteFood(foodId);
 		
 		return ResponseEntity.ok(foodId);
@@ -91,10 +95,16 @@ public class FoodController {
 	}
 	
 	@PostMapping("uploadImage/{foodId}")
-	public ResponseEntity<String> uploadFoodImage(@RequestParam("file") MultipartFile file,@PathVariable Long foodId) 
+	public ResponseEntity<String> uploadFoodImage(@RequestParam("file") MultipartFile file,@PathVariable Long foodId, Principal principal) 
 			throws IOException{
 		
-		
+		Optional<Food> foodOptional = foodService.getFoodById(foodId);
+        
+        if(foodOptional.isEmpty()) {
+        	throw new DatabaseRecordNotFoundException("food id: " + foodId);
+        }
+        
+        restaurantService.validateRestaurantOwner(foodOptional.get().getRestaurant().getId(), principal.getName());
 		
 		String uploadPath = env.getProperty("food_image_upload_path");
 
@@ -103,12 +113,7 @@ public class FoodController {
         Path filePath = Path.of(uploadPath+fileName);
         
         saveImage(file, filePath);
-        
-        Optional<Food> foodOptional = foodService.getFoodById(foodId);
-        
-        if(foodOptional.isEmpty()) {
-        	throw new DatabaseRecordNotFoundException(fileName);
-        }
+
         
         Food food = foodOptional.get();
         food.setPicture(fileName);

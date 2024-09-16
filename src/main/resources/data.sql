@@ -152,7 +152,9 @@ INSERT INTO delivery (
     NULL  -- completed_at is initially NULL
 );
 
+-- These menus are commented because sql inserts don't work with GenerationType.AUTO.
 
+/*
 INSERT INTO menu (name, restaurant_id)
 VALUES ('Menu1', 2);
 
@@ -161,6 +163,8 @@ VALUES ('Menu2', 2);
 
 INSERT INTO menu (name, restaurant_id)
 VALUES ('NewMenu', 1);
+*/
+-- These foods are commented because sql inserts don't work with GenerationType.AUTO.
 
 /*INSERT INTO food (name, picture, price, description, category, discount, available, menu_id, restaurant_id) 
 VALUES ('Sample Product', 'sample-image.png', 19.99, 'This is a sample product description.', 'noodle', 0.0, true, 1, 2);
