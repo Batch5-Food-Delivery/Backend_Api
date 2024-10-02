@@ -1,5 +1,6 @@
 package com.hostmdy.food.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,5 +73,9 @@ public class RestaruantController {
 		return ResponseEntity.ok(resId);
 	
 	}
-	
+
+	@GetMapping("/{resId}/isOwner")
+	public ResponseEntity<Boolean> isOwner(@PathVariable Long resId, Principal principal) {
+		return ResponseEntity.ok(resService.isRestaurantOwner(resId, principal.getName()));
+	}
 }

@@ -18,6 +18,8 @@ public interface RestaruantService {
 	Restaruant saveRestaruant(Restaruant restaruant);
 	
 	void deleteRestaurnt(Long id);
+	
+	boolean isRestaurantOwner(Long restaurantId, String ownerName);
 
 	void validateRestaurantOwner(Long restaurantId, String ownername);
 }

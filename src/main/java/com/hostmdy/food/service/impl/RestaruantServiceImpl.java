@@ -61,12 +61,18 @@ public class RestaruantServiceImpl implements RestaruantService  {
 	@Override
 	public void validateRestaurantOwner(Long restaurantId, String ownername) {
 		
-		User owner = userService.getUserByUsername(ownername);
-		Optional<Restaruant> restaurant = resRepo.findByIdAndOwner(restaurantId, owner);
-		if (restaurant.isEmpty()) {
+		if (!isRestaurantOwner(restaurantId, ownername)) {
 			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
-					+ "is not available");
+					+ " is not available");
 		}
+	}
+
+	@Override
+	public boolean isRestaurantOwner(Long restaurantId, String ownerName) {
+		
+		User owner = userService.getUserByUsername(ownerName);
+		Optional<Restaruant> restaurant = resRepo.findByIdAndOwner(restaurantId, owner);
+		return restaurant.isPresent();
 	}
 
 	
