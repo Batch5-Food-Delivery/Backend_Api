@@ -20,32 +20,32 @@ public class DeliverySerializer extends JsonSerializer<Delivery> {
 	        gen.writeObjectField("startedAt", delivery.getStartedAt());
 	        gen.writeObjectField("completedAt", delivery.getCompletedAt());
 
-	        // Serialize restaurant without address
-	        Restaruant restaurant = delivery.getRestaurant();
-	        if (restaurant != null) {
-	            gen.writeObjectFieldStart("restaurant");
-	            gen.writeNumberField("id", restaurant.getId());
-	            gen.writeStringField("name", restaurant.getName());
-	            gen.writeEndObject();
-	        }
-	        
-	        User customer = delivery.getCustomer();
-	        if (customer != null) {
-	        	gen.writeObjectFieldStart("customer");
-	            gen.writeNumberField("id", customer.getId());
-	            gen.writeStringField("name", customer.getFirstname() + customer.getLastname());
-	            gen.writeEndObject();
-	        }
-
-	        // Serialize restaurantAddress (if needed)
-	        if (delivery.getRestaurantAddress() != null) {
-	            gen.writeObjectField("restaurantAddress", delivery.getRestaurantAddress());
-	        }
-
-	        // Serialize destination
-	        if (delivery.getDestination() != null) {
-	            gen.writeObjectField("destination", delivery.getDestination());
-	        }
+//	        // Serialize restaurant without address
+//	        Restaruant restaurant = delivery.getRestaurant();
+//	        if (restaurant != null) {
+//	            gen.writeObjectFieldStart("restaurant");
+//	            gen.writeNumberField("id", restaurant.getId());
+//	            gen.writeStringField("name", restaurant.getName());
+//	            gen.writeEndObject();
+//	        }
+//	        
+//	        User customer = delivery.getCustomer();
+//	        if (customer != null) {
+//	        	gen.writeObjectFieldStart("customer");
+//	            gen.writeNumberField("id", customer.getId());
+//	            gen.writeStringField("name", customer.getFirstname() + customer.getLastname());
+//	            gen.writeEndObject();
+//	        }
+//
+//	        // Serialize restaurantAddress (if needed)
+//	        if (delivery.getRestaurantAddress() != null) {
+//	            gen.writeObjectField("restaurantAddress", delivery.getRestaurantAddress());
+//	        }
+//
+//	        // Serialize destination
+//	        if (delivery.getDestination() != null) {
+//	            gen.writeObjectField("destination", delivery.getDestination());
+//	        }
 
 	        gen.writeEndObject();
 	    }

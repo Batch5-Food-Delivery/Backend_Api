@@ -40,17 +40,17 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
 	
-	@ManyToOne(fetch = FetchType.LAZY) // Unidirectional relationship
-	@JoinColumn(name = "address_id") // Foreign key column
-	private Address destination;
+//	@ManyToOne(fetch = FetchType.LAZY) // Unidirectional relationship
+//	@JoinColumn(name = "address_id") // Foreign key column
+//	private Address destination;
+//	
 	
-	
-	
-	
+	private String destination;
 	private Double totalPrice;
 	private boolean orderStatus;
 	private LocalDateTime startedAt;
 	private LocalDateTime completedAt;
+	private String paymentMethod;
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", restaurant=" + restaurant + ", customer=" + customer + ", destination="

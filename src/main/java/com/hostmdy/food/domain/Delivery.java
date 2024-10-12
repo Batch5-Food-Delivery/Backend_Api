@@ -32,29 +32,29 @@ public class Delivery {
 	@GeneratedValue ( strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id")
-    private Restaruant restaurant;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "restaurant_id")
+//    private Restaruant restaurant;
 	
-	@ManyToOne(fetch = FetchType.LAZY) // Unidirectional relationship
-	@JoinColumn(name = "restaurant_address_id") // Foreign key column
-	private Address restaurantAddress;
+//	@ManyToOne(fetch = FetchType.LAZY) // Unidirectional relationship
+//	@JoinColumn(name = "restaurant_address_id") // Foreign key column
+//	private Address restaurantAddress;
 	
 	 @OneToOne(cascade = CascadeType.ALL)
 	 @JoinColumn(name = "order_id", referencedColumnName = "id")
 	 private Order order;
 	 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customer_id")
-	private User customer;
-	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "customer_id")
+//	private User customer;
+//	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "driver_id")
 	private User driver;
 	
-	@ManyToOne(fetch = FetchType.LAZY) // Unidirectional relationship
-	@JoinColumn(name = "customer_address_id") // Foreign key column
-	private Address destination;
+//	@ManyToOne(fetch = FetchType.LAZY) // Unidirectional relationship
+//	@JoinColumn(name = "customer_address_id") // Foreign key column
+//	private Address destination;
 	
 	private boolean completed;
 	private LocalDateTime startedAt;
@@ -72,8 +72,8 @@ public class Delivery {
 	
 	@Override
 	public String toString() {
-		return "Delivery [id=" + id + ", restaurant=" + restaurant.getAddress() + ", restaurantAddress=" + restaurantAddress
-				+ ", order=" + order + ", customer=" + customer + ", driver=" + driver + ", destination=" + destination
+		return "Delivery [id=" + id + ", restaurant=" + ", restaurantAddress=" 
+				+ ", order=" + order + ", customer=" + ", driver=" + driver + ", destination=" 
 				+ ", completed=" + completed + ", startedAt=" + startedAt + ", completedAt=" + completedAt + "]";
 	}
 	

@@ -22,7 +22,7 @@ public class UserPayment {
 	
 	private String method;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Long cart_id;
 
 }

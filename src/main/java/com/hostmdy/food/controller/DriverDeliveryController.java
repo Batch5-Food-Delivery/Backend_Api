@@ -47,8 +47,10 @@ public class DriverDeliveryController {
 	}
 	
 	@PatchMapping("/deliveries/complete/{deliveryId}")
-	public ResponseEntity<Delivery> completeDelivery(@PathVariable Long deliveryId, Principal principal) {
+	public ResponseEntity<Delivery> completeDelivery(@PathVariable Long deliveryId, @PathVariable Long orderId,@PathVariable Boolean deliveredStatus, @PathVariable Boolean confirmedStatus) {
 		
-		return ResponseEntity.ok(deliveryService.completeDelivery(deliveryId, principal));
+		return ResponseEntity.ok(deliveryService.updateDeliveriesStatus(deliveryId, orderId, deliveredStatus, confirmedStatus));
 	}
+	
+	
 }

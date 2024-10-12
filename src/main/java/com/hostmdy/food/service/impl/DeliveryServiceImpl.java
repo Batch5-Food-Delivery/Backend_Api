@@ -28,6 +28,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 	
 	private final DeliveryRepository deliveryRepository;
 	private final UserRepository userRepository;
+	private OrderRepository orderRepository;
+    
 	
 	// For Driver
 	@Override
@@ -48,25 +50,25 @@ public class DeliveryServiceImpl implements DeliveryService {
 		return deliveryRepository.findByDriverAndCompletedFalse(driver);
 	}
 
-	@Override
-	public Delivery completeDelivery(Long deliveryId, Principal principal) {
-		// TODO Auto-generated method stub 
-		User user = userRepository.findByUsername(principal.getName()).get();
-		Optional<Delivery> deliveryOptional;
-		if (user.isAdmin()) {
-			deliveryOptional = deliveryRepository.findById(deliveryId);
-		} else {
-			deliveryOptional = deliveryRepository.findByDriverAndId(user, deliveryId);
-		}
-		
-		if (deliveryOptional.isEmpty()) {
-			throw new DatabaseRecordNotFoundException("The delivery is not found");
-		}
-		
-		Delivery delivery = deliveryOptional.get();
-		delivery.setCompleted(true);
-		return deliveryRepository.save(delivery);
-	}
+//	@Override
+//	public Delivery completeDelivery(Long deliveryId, Principal principal) {
+//		// TODO Auto-generated method stub 
+//		User user = userRepository.findByUsername(principal.getName()).get();
+//		Optional<Delivery> deliveryOptional;
+//		if (user.isAdmin()) {
+//			deliveryOptional = deliveryRepository.findById(deliveryId);
+//		} else {
+//			deliveryOptional = deliveryRepository.findByDriverAndId(user, deliveryId);
+//		}
+//		
+//		if (deliveryOptional.isEmpty()) {
+//			throw new DatabaseRecordNotFoundException("The delivery is not found");
+//		}
+//		
+//		Delivery delivery = deliveryOptional.get();
+//		delivery.setCompleted(true);
+//		return deliveryRepository.save(delivery);
+//	}
 	
 	
 	// For Customer
@@ -103,14 +105,40 @@ public class DeliveryServiceImpl implements DeliveryService {
 		User driver = userRepository.findById(driverId).get();
 		
 		Delivery delivery = new Delivery();
-		delivery.setRestaurant(restaurant);
-		delivery.setRestaurantAddress(restaurant.getAddress());
+//		delivery.setRestaurant(restaurant);
+//		delivery.setRestaurantAddress(restaurant.getAddress());
 		delivery.setOrder(order);
-		delivery.setCustomer(order.getCustomer());
-		delivery.setDestination(order.getDestination());
+//		delivery.setCustomer(order.getCustomer());
+//		delivery.setDestination(order.getDestination());
 		delivery.setDriver(driver);
 		
 		return deliveryRepository.save(delivery);
 	}
+	
+
+		@Override
+		public Delivery updateDeliveriesStatus(Long orderId, Long deliveryId, Boolean deliveredStatus, Boolean confirmedStatus) {
+			// TODO Auto-generated method stub
+			
+			 // Update the order's delivered status
+	        Order order = orderRepository.findById(orderId)
+	            .orElseThrow(() -> new RuntimeException("Order not found"));
+	        order.setOrderStatus(deliveredStatus);
+	        orderRepository.save(order);
+
+	        // Update the delivery's confirmation status
+	        Delivery delivery = deliveryRepository.findById(deliveryId)
+	            .orElseThrow(() -> new RuntimeException("Delivery not found"));
+	        delivery.setCompleted(confirmedStatus);
+	        deliveryRepository.save(delivery);
+	        
+	        return delivery;
+		}
+
+		@Override
+		public Delivery completeDelivery(Long deliveryId, Principal principal) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 }

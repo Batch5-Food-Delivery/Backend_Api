@@ -12,6 +12,8 @@ import com.hostmdy.food.domain.User;
 public interface DeliveryService {
 	Optional<Delivery> getDeliveryById(Long id);
 	
+	Delivery updateDeliveriesStatus(Long orderId, Long deliveryId, Boolean deliveredStatus, Boolean confirmedStatus);
+	
 	
 	List<Delivery> getCurrentDeliveriesByDriver(User driver); 
 	List<Delivery> getCompletedDeliveriesByDriver(User driver); 

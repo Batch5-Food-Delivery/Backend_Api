@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hostmdy.food.domain.security.Role;
 import com.hostmdy.food.domain.security.UserRoles;
 
 import jakarta.persistence.CascadeType;
@@ -53,6 +54,10 @@ public class User {
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	
+	@OneToOne
+	@JoinColumn(name="role_id")
+	private Role role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cart_id")
