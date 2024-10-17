@@ -15,18 +15,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonSerialize(using = AddressSerializer.class)
 public class Address {
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	private String township;
 	private String street;
 	private String additionalDetails;
 	@Override
 	public String toString() {
-		return "Address [Id=" + Id + ", township=" + township + ", street=" + street + ", additionalDetails="
+		return "Address [Id=" + id + ", township=" + township + ", street=" + street + ", additionalDetails="
 				+ additionalDetails + "]";
 	}
 	
