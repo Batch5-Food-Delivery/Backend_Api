@@ -3,6 +3,9 @@ package com.hostmdy.food.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,7 +28,7 @@ import lombok.Setter;
 public class Order {
 	
 	@Id
-	@GeneratedValue ( strategy = GenerationType.AUTO)
+	@GeneratedValue( strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

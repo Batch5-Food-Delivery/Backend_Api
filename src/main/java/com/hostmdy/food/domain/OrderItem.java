@@ -1,6 +1,10 @@
 package com.hostmdy.food.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,12 +26,17 @@ public class OrderItem {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
+	    @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "food_id")
+	    private Food food;
 	    
 	    private int quantity;
 	    private double price;
+	    private double discount;
 
 	    @ManyToOne
 	    @JoinColumn(name = "order_id")
+	    @JsonBackReference
 	    private Order order;
 
 }

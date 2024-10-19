@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hostmdy.food.domain.Food;
+import com.hostmdy.food.domain.Restaruant;
+import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.repository.FoodRepository;
 import com.hostmdy.food.service.FoodService;
 
@@ -23,6 +25,11 @@ public class FoodServiceImpl implements FoodService {
 		// TODO Auto-generated method stub
 		return foodRepository.findById(id);
 		
+	}
+	
+	@Override
+	public Optional<Food> getFoodByIdAndRestaurant(Long id, Restaruant restaurant) {
+		return foodRepository.findByIdAndRestaurant(id, restaurant);
 	}
 
 	@Override
