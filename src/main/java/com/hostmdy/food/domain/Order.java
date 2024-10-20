@@ -3,6 +3,8 @@ package com.hostmdy.food.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
@@ -28,7 +30,10 @@ import lombok.Setter;
 public class Order {
 	
 	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO)
+	@GeneratedValue(
+	    strategy= GenerationType.AUTO,
+	    generator="native"
+	)
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
