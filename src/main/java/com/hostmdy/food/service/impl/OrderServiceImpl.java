@@ -1,6 +1,7 @@
 package com.hostmdy.food.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -89,5 +90,17 @@ public class OrderServiceImpl implements OrderService{
 		return orderRepository.save(newOrder);
 		
 		
+	}
+
+	@Override
+	public List<Order> getCurrentOrdersByRestaurant(Restaruant restaurant) {
+		// TODO Auto-generated method stub
+		return orderRepository.findByRestaurantAndCompletedFalse(restaurant);
+	}
+
+	@Override
+	public List<Order> getCompletedOrdersByRestaurant(Restaruant restaurant) {
+		// TODO Auto-generated method stub
+		return orderRepository.findByRestaurantAndCompletedTrue(restaurant);
 	}
 }

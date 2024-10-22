@@ -2,6 +2,8 @@ package com.hostmdy.food.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hostmdy.food.serializer.FoodSerializer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,8 +28,9 @@ public class OrderItem {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	    @ManyToOne(fetch = FetchType.LAZY)
+	    @ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(name = "food_id")
+	    @JsonSerialize(using = FoodSerializer.class)
 	    private Food food;
 	    
 	    private int quantity;

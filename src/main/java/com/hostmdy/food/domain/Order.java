@@ -40,14 +40,14 @@ public class Order {
     @JoinColumn(name = "restaurant_id")
     private Restaruant restaurant;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id")
 	private User customer;
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
 	
-	@ManyToOne(fetch = FetchType.LAZY) // Unidirectional relationship
+	@ManyToOne(fetch = FetchType.EAGER) // Unidirectional relationship
 	@JoinColumn(name = "address_id") // Foreign key column
 	private Address destination;
 	
