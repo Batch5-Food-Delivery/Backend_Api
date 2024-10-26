@@ -74,4 +74,9 @@ public class User {
                     .anyMatch(ur -> ur.getRole().getName().equals("ADMIN"));
     }
 	
+	public boolean isDriver() {
+        return userRoles.stream()
+                    .anyMatch(ur -> ur.getRole().getName().equals("DRIVER"));
+    }
+	
 }

@@ -22,5 +22,5 @@ public interface DeliveryService {
 	
 	List<Delivery> getCurrentDeliveriesByRestaurant(Restaruant restaurant);
 	List<Delivery> getCompletedDeliveriesByRestaurant(Restaruant restaurant);
-	Delivery createDelivery(Restaruant restaurant, Order order, Long driverId);
+	Delivery createDelivery(Order order, Long driverId);
 }

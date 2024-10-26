@@ -51,6 +51,7 @@ public class RestaurantDeliveryController {
 		
 	}
 	
+	/*
 	@PostMapping("/deliveries/create")
 	public ResponseEntity<Delivery> createDelivery(Principal principal, @RequestBody DeliveryRequest deliRequest) {
 	
@@ -69,4 +70,5 @@ public class RestaurantDeliveryController {
 		Delivery delivery = deliveryService.createDelivery(restaurant, order, deliRequest.getDriverId());
 		return ResponseEntity.ok(delivery);
 	}
+	*/
 }

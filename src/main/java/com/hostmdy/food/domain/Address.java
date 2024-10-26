@@ -15,6 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonSerialize(using = AddressSerializer.class)
 public class Address {
 
 	@Id

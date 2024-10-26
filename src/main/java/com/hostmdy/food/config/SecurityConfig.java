@@ -63,6 +63,7 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.GET, "/restaurant/**").permitAll() 
 					.requestMatchers(HttpMethod.GET, "/menu/**").permitAll() 
 					.requestMatchers(HttpMethod.GET, "/food/**").permitAll()
+					.requestMatchers("/driver").hasRole("DRIVER")
 					.anyRequest().authenticated())
 			.httpBasic(Customizer.withDefaults())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

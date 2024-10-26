@@ -2,6 +2,7 @@ package com.hostmdy.food.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hostmdy.food.domain.Order;
 import com.hostmdy.food.domain.Restaruant;
+import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
+import com.hostmdy.food.payload.OrderCompleteRequest;
 import com.hostmdy.food.service.OrderService;
 import com.hostmdy.food.service.RestaruantService;
 import com.hostmdy.food.service.UserService;
@@ -48,5 +51,17 @@ public class OrderController {
 	 	public ResponseEntity<List<Order>> getCompletedOrdersByRestaurant(@PathVariable Long restaurantId, Principal principal) {
 	 		Restaruant res = restaurantService.getRestaurantByIdAndOwnername(restaurantId, principal.getName());
 	 		return ResponseEntity.ok(orderService.getCompletedOrdersByRestaurant(res));
+	 	}
+	 	
+	 	@PostMapping("/completeOrder")
+	 	public ResponseEntity<Order> completeOrder(@RequestBody OrderCompleteRequest request, Principal principal) {
+	 		Optional<Order> order = orderService.getOrderById(request.getOrderId());
+	 		if (order.isEmpty()) {
+	 			throw new DatabaseRecordNotFoundException("No order is found");
+	 		}
+	 		restaurantService.validateRestaurantOwner(
+	 				order.get().getRestaurant().getId(), principal.getName());
+	 		
+	 		return ResponseEntity.ok(orderService.completeOrder(order.get().getId(), request.getDriverId()));
 	 	}
 }

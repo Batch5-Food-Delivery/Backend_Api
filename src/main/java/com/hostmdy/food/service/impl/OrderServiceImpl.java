@@ -17,10 +17,12 @@ import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.repository.DeliveryRepository;
 import com.hostmdy.food.repository.OrderRepository;
 import com.hostmdy.food.repository.UserAddressRepository;
+import com.hostmdy.food.service.DeliveryService;
 import com.hostmdy.food.service.FoodService;
 import com.hostmdy.food.service.OrderItemService;
 import com.hostmdy.food.service.OrderService;
 import com.hostmdy.food.service.RestaruantService;
+import com.hostmdy.food.service.UserService;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class OrderServiceImpl implements OrderService{
 	private final RestaruantService restaurantService;
 	private final FoodService foodService;
 	private final OrderItemService orderItemService;
+	private final DeliveryService deliveryService;
 
 	@Override
 	public Order getOrderByRestaurantAndId(Restaruant restaurant, Long OrderId) {
@@ -102,5 +105,28 @@ public class OrderServiceImpl implements OrderService{
 	public List<Order> getCompletedOrdersByRestaurant(Restaruant restaurant) {
 		// TODO Auto-generated method stub
 		return orderRepository.findByRestaurantAndCompletedTrue(restaurant);
+	}
+
+	@Override
+	@Transactional
+	public Order completeOrder(Long orderId, Long driverId) {
+		// TODO Auto-generated method stub
+		Optional<Order> orderOptional = orderRepository.findById(orderId);
+		if (orderOptional.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("Order not found");
+		}
+		
+		Order order = orderOptional.get();
+		order.setCompleted(true);
+		deliveryService.createDelivery(order, driverId);
+		
+		System.out.println(order);
+		return orderRepository.save(order);
+	}
+
+	@Override
+	public Optional<Order> getOrderById(Long orderId) {
+		// TODO Auto-generated method stub
+		return orderRepository.findById(orderId);
 	}
 }

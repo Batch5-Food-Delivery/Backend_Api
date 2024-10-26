@@ -97,18 +97,20 @@ public class DeliveryServiceImpl implements DeliveryService {
 	}
 	
 	@Override
-	@Transactional
-	public Delivery createDelivery(Restaruant restaurant, Order order, Long driverId) {
+	public Delivery createDelivery(Order order, Long driverId) {
 		
-		User driver = userRepository.findById(driverId).get();
+		Optional<User> driver = userRepository.findById(driverId);
+		if (driver.isEmpty() || !driver.get().isDriver()) {
+			throw new DatabaseRecordNotFoundException("Driver not found");
+		}
 		
 		Delivery delivery = new Delivery();
-		delivery.setRestaurant(restaurant);
-		delivery.setRestaurantAddress(restaurant.getAddress());
+		delivery.setRestaurant(order.getRestaurant());
+		delivery.setRestaurantAddress(order.getRestaurant().getAddress());
 		delivery.setOrder(order);
 		delivery.setCustomer(order.getCustomer());
 		delivery.setDestination(order.getDestination());
-		delivery.setDriver(driver);
+		delivery.setDriver(driver.get());
 		
 		return deliveryRepository.save(delivery);
 	}
