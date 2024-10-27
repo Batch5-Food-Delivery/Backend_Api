@@ -2,6 +2,7 @@ package com.hostmdy.food.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,11 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hostmdy.food.domain.Cart;
 import com.hostmdy.food.domain.User;
+import com.hostmdy.food.domain.UserAddress;
 import com.hostmdy.food.domain.security.Role;
 import com.hostmdy.food.domain.security.UserRoles;
+import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.exception.UserAlreadyExistsException;
 import com.hostmdy.food.repository.RoleRepository;
 import com.hostmdy.food.repository.UserRepository;
+import com.hostmdy.food.repository.UserRoleRepository;
 import com.hostmdy.food.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +30,7 @@ public class UserServiceImpl implements UserService{
 	
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
+	private final UserRoleRepository userRoleRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 
 	@Override
@@ -116,5 +121,19 @@ public class UserServiceImpl implements UserService{
 		System.out.println(user.getPassword());
 		
 		return saveUser(user);
+	}
+	
+	@Override
+	public List<User> getAllAvailableDrivers() {
+		Optional<Role> driverRole = roleRepository.findByName("DRIVER");
+		if (driverRole.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("ROLE_DRIVER not found");
+		}
+		List<UserRoles> userRoles = userRoleRepository.findByRole(driverRole.get());
+		
+		return userRoles.stream()
+                .map(UserRoles::getUser)
+                .filter(User::isAvailable) 
+                .collect(Collectors.toList());
 	}
 }

@@ -79,4 +79,8 @@ public class User {
                     .anyMatch(ur -> ur.getRole().getName().equals("DRIVER"));
     }
 	
+	public boolean isAvailable() {
+		return this.available;
+	}
+	
 }

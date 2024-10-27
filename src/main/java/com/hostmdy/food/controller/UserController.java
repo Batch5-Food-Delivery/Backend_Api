@@ -109,5 +109,10 @@ private final JwtTokenProvider tokenProvider;
 		userService.deleteUserById(userId);
 		return ResponseEntity.ok(userId);
 	}
+	
+	@GetMapping("/availableDrivers")
+	public ResponseEntity<List<User>> findAllAvailableDrivers() {
+		return ResponseEntity.ok(userService.getAllAvailableDrivers());
+	}
 
 }

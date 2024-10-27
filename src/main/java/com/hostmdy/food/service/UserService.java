@@ -13,7 +13,7 @@ public interface UserService {
 	Optional<User> getUserByEmail(String email);
 	User getUserByUsername(String username);
 	
-	
+	List<User> getAllAvailableDrivers();
 	
     Optional<User> getUserById(Long userId);
 		
