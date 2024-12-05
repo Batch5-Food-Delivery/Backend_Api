@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.hostmdy.food.domain.security.UserRoles;
 
 import jakarta.persistence.CascadeType;
@@ -39,6 +41,7 @@ public class User {
 	private String lastname;
 	private String username;
 	private String email;
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	private Boolean enable = true;
 	private String profile;

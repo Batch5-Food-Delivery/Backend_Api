@@ -34,3 +34,4 @@ build/
 
 # Ignore static images folder
 src/main/resources/static/images/food/
+src/main/resources/static/images/restaurant/

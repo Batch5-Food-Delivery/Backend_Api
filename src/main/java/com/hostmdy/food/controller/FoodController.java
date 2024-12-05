@@ -119,7 +119,7 @@ public class FoodController {
         food.setPicture(fileName);
         foodService.saveFood(food);
         
-		return null;
+        return ResponseEntity.ok("Success");
         
 
 	}

@@ -9,6 +9,7 @@ import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.domain.User;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.repository.RestaruantRepository;
+import com.hostmdy.food.service.AddressService;
 import com.hostmdy.food.service.RestaruantService;
 import com.hostmdy.food.service.UserService;
 
@@ -20,6 +21,7 @@ public class RestaruantServiceImpl implements RestaruantService  {
 	
 	private final RestaruantRepository resRepo;
 	private final UserService userService;
+	private final AddressService addressService;
 
 	@Override
 	public Optional<Restaruant> getRestaruantById(Long id) {
@@ -30,12 +32,13 @@ public class RestaruantServiceImpl implements RestaruantService  {
 	@Override
 	public List<Restaruant> getAllRestaruant() {
 		// TODO Auto-generated method stub
-		return (List<Restaruant>) resRepo.findAll();
+		return (List<Restaruant>) resRepo.findByAvailableTrue();
 	}
 
 	@Override
 	public Restaruant saveRestaruant(Restaruant restaruant) {
 		// TODO Auto-generated method stub
+		restaruant.setAvailable(false);
 		return resRepo.save(restaruant);
 	}
 
