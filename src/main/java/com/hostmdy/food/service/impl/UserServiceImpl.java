@@ -136,4 +136,20 @@ public class UserServiceImpl implements UserService{
                 .filter(User::isAvailable) 
                 .collect(Collectors.toList());
 	}
+
+	@Override
+	public User applyDriver(User user) {
+		// TODO Auto-generated method stub
+		Optional<Role> driverRole = roleRepository.findByName("DRIVER");
+		if (driverRole.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("ROLE_DRIVER not found");
+		}
+		
+		UserRoles userRoles = new UserRoles(user, driverRole.get());
+		user.getUserRoles().add(userRoles);
+		userRepository.save(user);
+		
+		return user;
+		
+	}
 }

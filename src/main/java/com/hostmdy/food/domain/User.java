@@ -71,16 +71,23 @@ public class User {
 	private void onUpdate() {
 		this.updatedAt = LocalDateTime.now();
 	}
-
+	
+	@JsonIgnore
 	public boolean isAdmin() {
         return userRoles.stream()
                     .anyMatch(ur -> ur.getRole().getName().equals("ADMIN"));
     }
 	
+	@JsonIgnore
 	public boolean isDriver() {
         return userRoles.stream()
                     .anyMatch(ur -> ur.getRole().getName().equals("DRIVER"));
     }
+	
+	public List<String> getRoles() {
+		return userRoles.stream()
+				.map(ur -> ur.getRole().getName()).toList();
+	}
 	
 	public boolean isAvailable() {
 		return this.available;

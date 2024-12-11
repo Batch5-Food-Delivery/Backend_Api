@@ -1,5 +1,6 @@
 package com.hostmdy.food.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,12 +85,10 @@ private final JwtTokenProvider tokenProvider;
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		User user = userService.getUserByUsername(request.getUsername());
-		List<String> roles = user.getUserRoles().stream()
-				.map(ur -> ur.getRole().getName()).toList();
 		
 		String token = TOKEN_PREFIX+tokenProvider.generateToken(authentication);
 		
-		return ResponseEntity.ok(new LoginResponse(token,user,roles,true));		
+		return ResponseEntity.ok(new LoginResponse(token,user,user.getRoles(),true));		
 	}
 	
 	@PutMapping("/update")
@@ -114,5 +113,10 @@ private final JwtTokenProvider tokenProvider;
 	public ResponseEntity<List<User>> findAllAvailableDrivers() {
 		return ResponseEntity.ok(userService.getAllAvailableDrivers());
 	}
-
+	
+	@PutMapping("/applyDriver")
+	public ResponseEntity<User> applyForDriver(Principal principal) {
+		User user = userService.getUserByUsername(principal.getName());
+		return ResponseEntity.ok(userService.applyDriver(user));
+	}
 }

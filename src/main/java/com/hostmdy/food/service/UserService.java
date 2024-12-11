@@ -21,6 +21,8 @@ public interface UserService {
 	
 	User createUser(User user);
 	
+	User applyDriver(User user);
+	
 	void deleteUserById(Long userId);
 
 }
