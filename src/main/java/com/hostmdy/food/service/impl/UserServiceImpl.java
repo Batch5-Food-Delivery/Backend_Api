@@ -152,4 +152,11 @@ public class UserServiceImpl implements UserService{
 		return user;
 		
 	}
+	
+	@Override
+	public User availableSwitch(User user, Boolean available) {
+		
+		user.setAvailable(available);
+		return saveUser(user);
+	}
 }

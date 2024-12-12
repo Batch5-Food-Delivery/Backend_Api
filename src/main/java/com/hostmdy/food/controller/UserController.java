@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hostmdy.food.config.JwtTokenProvider;
 import com.hostmdy.food.domain.User;
@@ -118,5 +119,11 @@ private final JwtTokenProvider tokenProvider;
 	public ResponseEntity<User> applyForDriver(Principal principal) {
 		User user = userService.getUserByUsername(principal.getName());
 		return ResponseEntity.ok(userService.applyDriver(user));
+	}
+	
+	@PutMapping("/availableStatus")
+	public ResponseEntity<Boolean> switchAvailableStatus(Principal principal, @RequestParam Boolean available) {
+		User user = userService.getUserByUsername(principal.getName());
+		return ResponseEntity.ok(userService.availableSwitch(user, available).getAvailable());
 	}
 }

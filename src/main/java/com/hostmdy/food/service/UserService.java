@@ -24,5 +24,7 @@ public interface UserService {
 	User applyDriver(User user);
 	
 	void deleteUserById(Long userId);
+	
+	User availableSwitch(User user, Boolean available);
 
 }
