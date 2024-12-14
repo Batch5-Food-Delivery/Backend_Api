@@ -22,4 +22,8 @@ public interface RestaruantService {
 	boolean isRestaurantOwner(Long restaurantId, String ownerName);
 
 	void validateRestaurantOwner(Long restaurantId, String ownername);
+	
+	List<Restaruant> getPendingRestaurants();
+	
+	Restaruant acceptRestaurant(Long restaurantId);
 }

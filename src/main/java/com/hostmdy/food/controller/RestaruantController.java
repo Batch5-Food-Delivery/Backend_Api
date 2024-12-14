@@ -137,6 +137,15 @@ public class RestaruantController {
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(imageBytes);
     }
-	
+    
+    @GetMapping("/pendingRestaurants")
+    public ResponseEntity<List<Restaruant>> pendingRestaurants() {
+    	return ResponseEntity.ok(resService.getPendingRestaurants());
+    }
+    
+    @PutMapping("/acceptRestaurant")
+    public ResponseEntity<Restaruant> acceptRestaurant(@RequestParam Long id) {
+    	return ResponseEntity.ok(resService.acceptRestaurant(id));
+    }
 	
 }

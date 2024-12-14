@@ -78,5 +78,25 @@ public class RestaruantServiceImpl implements RestaruantService  {
 		return restaurant.isPresent();
 	}
 
+	@Override
+	public List<Restaruant> getPendingRestaurants() {
+		// TODO Auto-generated method stub
+		return resRepo.findByAvailableFalse();
+	}
+
+	@Override
+	public Restaruant acceptRestaurant(Long restaurantId) {
+		// TODO Auto-generated method stub
+		Optional<Restaruant> restaurantOptional = resRepo.findById(restaurantId);
+		if (restaurantOptional.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
+					+ " is not available");
+		}
+		
+		Restaruant restaurant = restaurantOptional.get();
+		restaurant.setAvailable(true);
+		return resRepo.save(restaurant);
+	}
+
 	
 }

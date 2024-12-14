@@ -12,4 +12,5 @@ public interface RestaruantRepository extends CrudRepository<Restaruant, Long> {
 
 	Optional<Restaruant> findByIdAndOwner(Long id, User owner);
 	List<Restaruant> findByAvailableTrue();
+	List<Restaruant> findByAvailableFalse();
 }
