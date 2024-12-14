@@ -129,4 +129,10 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return orderRepository.findById(orderId);
 	}
+
+	@Override
+	public List<Order> getOrdersByCustomer(User customer) {
+		// TODO Auto-generated method stub
+		return orderRepository.findByCustomer(customer);
+	}
 }

@@ -13,6 +13,7 @@ public interface OrderService {
 	Order getOrderByRestaurantAndId(Restaruant restaurant, Long OrderId);
 	List<Order> getCurrentOrdersByRestaurant(Restaruant restaurant);
 	List<Order> getCompletedOrdersByRestaurant(Restaruant restaurant);
+	List<Order> getOrdersByCustomer(User customer);
 	Order saveOrder(Order order);
 	Order completeOrder(Long orderId, Long driverId);
 }

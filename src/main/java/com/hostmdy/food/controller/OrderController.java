@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hostmdy.food.domain.Order;
 import com.hostmdy.food.domain.Restaruant;
+import com.hostmdy.food.domain.User;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.payload.OrderCompleteRequest;
 import com.hostmdy.food.service.OrderService;
@@ -63,5 +64,11 @@ public class OrderController {
 	 				order.get().getRestaurant().getId(), principal.getName());
 	 		
 	 		return ResponseEntity.ok(orderService.completeOrder(order.get().getId(), request.getDriverId()));
+	 	}
+	 	
+	 	@GetMapping("/customer/all") 
+	 	public ResponseEntity<List<Order>> getAllOrdersByUser(Principal principal) {
+	 		User customer = userService.getUserByUsername(principal.getName());
+	 		return ResponseEntity.ok(orderService.getOrdersByCustomer(customer));
 	 	}
 }
