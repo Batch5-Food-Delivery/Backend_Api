@@ -1,7 +1,6 @@
 package com.hostmdy.food.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,6 +30,7 @@ public class Restaruant {
 	private Long id;
 	private String name;
 	private String profile;
+	
 	private Boolean available;
 	@Column(columnDefinition = "text")
 	private String description;

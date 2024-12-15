@@ -28,7 +28,7 @@ public class Food {
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
-	private Long Id;
+	private Long id;
 	private String name;
 	private String picture;
 	private Double price;
