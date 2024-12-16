@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
@@ -59,12 +61,30 @@ public class RestaruantController {
 		return ResponseEntity.ok(res.get());
 	}
 	
-	@PostMapping("/create")
-	public ResponseEntity<Restaruant> createFood(@RequestBody Restaruant res, Principal principal) {
-		res.setOwner(userService.getUserByUsername(principal.getName()));
-		Restaruant createdRes = resService.saveRestaruant(res);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdRes);
+	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Restaruant> createRestaurant(
+	        @RequestPart("restaurant") String restaurantJson,
+	        @RequestPart("image") Optional<MultipartFile> image,
+	        Principal principal) throws IOException {
+
+	    // Parse restaurant JSON string to Restaurant object
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    Restaruant restaurant = objectMapper.readValue(restaurantJson, Restaruant.class);
+
+	    // Set the owner of the restaurant
+	    restaurant.setOwner(userService.getUserByUsername(principal.getName()));
+
+	    // Save the restaurant entity
+	    Restaruant createdRestaurant = resService.saveRestaruant(restaurant);
+
+	    // Handle optional image upload
+	    if (image.isPresent() && !image.get().isEmpty()) {
+	        uploadRestaurantImage(image.get(), createdRestaurant.getId(), principal);
+	    }
+
+	    return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
 	}
+
 	
 	@PutMapping("/update")
 	public ResponseEntity<Restaruant> updateFood(@RequestBody Restaruant res){

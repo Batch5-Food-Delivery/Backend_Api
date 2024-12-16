@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.service.FoodService;
@@ -57,12 +59,21 @@ public class FoodController {
 		return ResponseEntity.ok(food.get());
 	}
 	
-	@PostMapping("/create")
-	public ResponseEntity<Food> createFood(@RequestBody Food food, Principal principal) {
+	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Food> createFood(@RequestPart("food") String foodJson, @RequestPart("image") Optional<MultipartFile> image,
+			Principal principal) throws IOException {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+	    Food food = objectMapper.readValue(foodJson, Food.class);
 		
 		restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
 		
 		Food createdFood = foodService.saveFood(food);
+		
+		if(!image.isEmpty()) {
+			uploadFoodImage(image.get(), createdFood.getId(), principal);
+		}
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
 	}
 	
@@ -143,12 +154,5 @@ public class FoodController {
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(imageBytes);
     }
-	
-	
-	
-	
-	
-	
-	
 	
 }
