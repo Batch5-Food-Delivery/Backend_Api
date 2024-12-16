@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.service.FoodService;
+import com.hostmdy.food.service.ImageService;
 import com.hostmdy.food.service.RestaruantService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,7 @@ public class FoodController {
 	private final Environment env;
 	private final FoodService foodService;
 	private final RestaruantService restaurantService;
+	private final ImageService imageService;
 
 	@GetMapping("/all")
 	public List<Food> getAllFoods(){
@@ -61,7 +63,7 @@ public class FoodController {
 	
 	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Food> createFood(@RequestPart("food") String foodJson, @RequestPart("image") Optional<MultipartFile> image,
-			Principal principal) throws IOException {
+			Principal principal) throws IOException{
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 	    Food food = objectMapper.readValue(foodJson, Food.class);
@@ -71,7 +73,7 @@ public class FoodController {
 		Food createdFood = foodService.saveFood(food);
 		
 		if(!image.isEmpty()) {
-			uploadFoodImage(image.get(), createdFood.getId(), principal);
+			uploadFoodImage(image.get(), createdFood);
 		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
@@ -105,44 +107,15 @@ public class FoodController {
 	
 	}
 	
-	@PostMapping("uploadImage/{foodId}")
-	public ResponseEntity<String> uploadFoodImage(@RequestParam("file") MultipartFile file,@PathVariable Long foodId, Principal principal) 
-			throws IOException{
-		
-		Optional<Food> foodOptional = foodService.getFoodById(foodId);
-        
-        if(foodOptional.isEmpty()) {
-        	throw new DatabaseRecordNotFoundException("food id: " + foodId);
-        }
-        
-        restaurantService.validateRestaurantOwner(foodOptional.get().getRestaurant().getId(), principal.getName());
+	
+	public void uploadFoodImage(MultipartFile image, Food food) {
 		
 		String uploadPath = env.getProperty("food_image_upload_path");
-
-        String fileName = foodId+".jpg";
+		
+		String imgName = imageService.saveImage(image, food.getId(), uploadPath);
         
-        Path filePath = Path.of(uploadPath+fileName);
-        
-        saveImage(file, filePath);
-
-        
-        Food food = foodOptional.get();
-        food.setPicture(fileName);
-        foodService.saveFood(food);
-        
-        return ResponseEntity.ok("Success");
-        
-
-	}
-	
-	private void saveImage(MultipartFile file, Path filePath) {
-		 try {
-				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+        food.setPicture(imgName);
+        foodService.saveFood(food);        
 	}
 	
 	@GetMapping("image/{imageName}")

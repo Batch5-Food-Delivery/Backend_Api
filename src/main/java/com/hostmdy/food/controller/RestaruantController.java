@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
+import com.hostmdy.food.service.ImageService;
 import com.hostmdy.food.service.RestaruantService;
 import com.hostmdy.food.service.UserService;
 
@@ -44,6 +45,7 @@ public class RestaruantController {
 	private final Environment env;
    private final RestaruantService resService;
    private final UserService userService;
+   private final ImageService imgService;
 	
 	
 	@GetMapping("/all")
@@ -79,7 +81,7 @@ public class RestaruantController {
 
 	    // Handle optional image upload
 	    if (image.isPresent() && !image.get().isEmpty()) {
-	        uploadRestaurantImage(image.get(), createdRestaurant.getId(), principal);
+	        uploadRestaurantImage(image.get(), createdRestaurant);
 	    }
 
 	    return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
@@ -115,36 +117,15 @@ public class RestaruantController {
 		return ResponseEntity.ok(resService.isRestaurantOwner(resId, principal.getName()));
 	}
 	
-	@PostMapping("uploadImage/{restaurantId}")
-	public ResponseEntity<String> uploadRestaurantImage(@RequestParam("file") MultipartFile file,@PathVariable Long restaurantId, Principal principal) 
+	public void uploadRestaurantImage(MultipartFile image, Restaruant restaurant) 
 			throws IOException{
-		
-		Restaruant restaurant = resService.getRestaurantByIdAndOwnername(restaurantId, principal.getName());
-        
+		        
 		String uploadPath = env.getProperty("restaurant_image_upload_path");
 
-        String fileName = restaurantId+".jpg";
+        String imgName = imgService.saveImage(image, restaurant.getId(), uploadPath);
         
-        Path filePath = Path.of(uploadPath+fileName);
-        
-        saveImage(file, filePath);
-
-        
-        restaurant.setProfile(fileName);
-        resService.saveRestaruant(restaurant);
-        
-        return ResponseEntity.ok("Success");
-        
-
-	}
-	
-	private void saveImage(MultipartFile file, Path filePath) {
-		 try {
-				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        restaurant.setProfile(imgName);
+        resService.saveRestaruant(restaurant);        
 
 	}
 	
