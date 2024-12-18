@@ -17,6 +17,8 @@ public interface FoodService {
 	
 	List<Food> getAllFood();
 	
+	Food updateFood(Food food);
+	
 	Food saveFood(Food food);
 	
 	void deleteFood(Long id);

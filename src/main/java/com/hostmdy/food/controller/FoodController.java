@@ -79,15 +79,26 @@ public class FoodController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
 	}
 	
-	@PutMapping("/update")
-	public ResponseEntity<Food> updateFood(@RequestBody Food food, Principal principal){
+	@PutMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Food> updateFood(@RequestPart("food") String foodJson, @RequestPart("image") Optional<MultipartFile> image,
+			Principal principal) throws IOException{
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+	    Food food = objectMapper.readValue(foodJson, Food.class);
+	    
+	    if(food.getId() == null) {
+			return ResponseEntity.badRequest().build();
+		}
 		
 		restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
 		
-		if(food.getId() == null) {
-			return ResponseEntity.badRequest().build();
+		Food updatedFood = foodService.updateFood(food);
+		
+		if(!image.isEmpty()) {
+			uploadFoodImage(image.get(), updatedFood);
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(foodService.saveFood(food));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(updatedFood);
 	}
 	
 	@DeleteMapping("/{foodId}/delete")

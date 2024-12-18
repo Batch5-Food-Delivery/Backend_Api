@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.domain.Restaruant;
+import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.repository.FoodRepository;
 import com.hostmdy.food.service.FoodService;
@@ -49,6 +50,20 @@ public class FoodServiceImpl implements FoodService {
 	public void deleteFood(Long id) {
 		// TODO Auto-generated method stub
 		 foodRepository.deleteById(id);
+	}
+
+	@Override
+	public Food updateFood(Food food) {
+		Optional<Food> oldFoodOptional = getFoodById(food.getId());
+		if (oldFoodOptional.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("Food not found");
+		}
+		
+		Food oldFood = oldFoodOptional.get();
+		food.setRestaurant(oldFood.getRestaurant());
+		food.setMenu(oldFood.getMenu());
+		food.setPicture(oldFood.getPicture());
+		return saveFood(food);
 	}
 
 }
