@@ -14,6 +14,8 @@ import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.domain.User;
 import com.hostmdy.food.domain.UserAddress;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
+import com.hostmdy.food.payload.OrderItemDTO;
+import com.hostmdy.food.payload.OrderRequest;
 import com.hostmdy.food.repository.DeliveryRepository;
 import com.hostmdy.food.repository.OrderRepository;
 import com.hostmdy.food.repository.UserAddressRepository;
@@ -51,10 +53,10 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Override
 	@Transactional
-	public Order saveOrder(Order order) {
+	public Order saveOrder(OrderRequest orderReq) {
 		
 		// Validate Restaurant
-		Optional<Restaruant> restaurantOptional = restaurantService.getRestaruantById(order.getRestaurant().getId());
+		Optional<Restaruant> restaurantOptional = restaurantService.getRestaruantById(orderReq.getRestaurant().getId());
 		if (restaurantOptional.isEmpty()) {
 			throw new DatabaseRecordNotFoundException("Your restaurant is not valid");
 		}
@@ -62,18 +64,23 @@ public class OrderServiceImpl implements OrderService{
 		
 		// Validate Address
 		Optional<UserAddress> userAddressOptional = userAddressRepository
-				.findByUserAndAddress(order.getCustomer(), order.getDestination());
+				.findByUserAndAddress(orderReq.getCustomer(), orderReq.getDestination());
 		if (userAddressOptional.isEmpty()) {
 			throw new DatabaseRecordNotFoundException("Address is not valid");
 		}
 		
+		Order order = new Order();
+		
+		order.setCustomer(orderReq.getCustomer());
+		order.setRestaurant(orderReq.getRestaurant());
+		order.setDestination(orderReq.getDestination());
 		order.setStartedAt(LocalDateTime.now());
 		order.setCompleted(false);
 		Order newOrder = orderRepository.save(order);
 		
 		Double total = 0.0;
 		
-		for (OrderItem item: newOrder.getItems()) {
+		for (OrderItemDTO item: orderReq.getItems()) {
 			Optional<Food> foodOptional = foodService.getFoodByIdAndRestaurant(item.getFood().getId(), restaurant);
 			
 			if(foodOptional.isEmpty()) {
@@ -81,12 +88,15 @@ public class OrderServiceImpl implements OrderService{
 			}
 			
 			Food food = foodOptional.get();
-			item.setPrice(food.getPrice());
-			item.setDiscount(food.getDiscount());
-			item.setOrder(newOrder);
-			orderItemService.saveOrderItem(item);
+			OrderItem orderItem = new OrderItem();
+			orderItem.setName(food.getName());
+			orderItem.setQuantity(item.getQuantity());
+			orderItem.setPrice(food.getPrice());
+			orderItem.setDiscount(food.getDiscount());
+			orderItem.setOrder(newOrder);
+			orderItemService.saveOrderItem(orderItem);
 			
-			total += (item.getPrice() * (1 - item.getDiscount() / 100)) * item.getQuantity();
+			total += (orderItem.getPrice() * (1 - orderItem.getDiscount() / 100)) * orderItem.getQuantity();
 		}
 		
 		newOrder.setTotal(total);

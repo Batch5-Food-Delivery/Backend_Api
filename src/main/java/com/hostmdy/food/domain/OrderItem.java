@@ -28,11 +28,7 @@ public class OrderItem {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	    @ManyToOne(fetch = FetchType.EAGER)
-	    @JoinColumn(name = "food_id")
-	    @JsonSerialize(using = FoodSerializer.class)
-	    private Food food;
-	    
+	    private String name;
 	    private int quantity;
 	    private double price;
 	    private double discount;

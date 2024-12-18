@@ -19,6 +19,7 @@ import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.domain.User;
 import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.payload.OrderCompleteRequest;
+import com.hostmdy.food.payload.OrderRequest;
 import com.hostmdy.food.service.OrderService;
 import com.hostmdy.food.service.RestaruantService;
 import com.hostmdy.food.service.UserService;
@@ -37,9 +38,9 @@ public class OrderController {
 	 
 
 	 	@PostMapping("/create")
-	    public ResponseEntity<Order> createOrder(@RequestBody Order order, Principal principal) {
-	       order.setCustomer(userService.getUserByUsername(principal.getName()));
-	       return ResponseEntity.ok(orderService.saveOrder(order));
+	    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderReq, Principal principal) {
+	       orderReq.setCustomer(userService.getUserByUsername(principal.getName()));
+	       return ResponseEntity.ok(orderService.saveOrder(orderReq));
 	    }
 	 	
 	 	@GetMapping("restaurant/{restaurantId}/current") 

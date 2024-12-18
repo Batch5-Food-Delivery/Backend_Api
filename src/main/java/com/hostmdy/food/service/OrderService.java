@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.hostmdy.food.domain.Order;
 import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.domain.User;
+import com.hostmdy.food.payload.OrderRequest;
 
 public interface OrderService {
 
@@ -14,6 +15,6 @@ public interface OrderService {
 	List<Order> getCurrentOrdersByRestaurant(Restaruant restaurant);
 	List<Order> getCompletedOrdersByRestaurant(Restaruant restaurant);
 	List<Order> getOrdersByCustomer(User customer);
-	Order saveOrder(Order order);
+	Order saveOrder(OrderRequest orderReq);
 	Order completeOrder(Long orderId, Long driverId);
 }
