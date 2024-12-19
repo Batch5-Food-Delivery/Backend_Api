@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hostmdy.food.controller.RestaurantDeliveryController;
 import com.hostmdy.food.domain.Menu;
@@ -37,6 +38,19 @@ public class MenuServiceImpl implements MenuService {
 	public Menu createNewMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		return menuRepository.save(menu);
+	}
+
+	@Transactional
+	@Override
+	public Menu updateMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		Optional<Menu> ogMenuOptional = menuRepository.findByIdAndRestaurant(menu.getId(), menu.getRestaurant());
+		if (ogMenuOptional.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("Menu not found");
+		}
+		Menu ogMenu = ogMenuOptional.get();
+		ogMenu.setName(menu.getName());
+		return menuRepository.save(ogMenu);
 	}
 
 }

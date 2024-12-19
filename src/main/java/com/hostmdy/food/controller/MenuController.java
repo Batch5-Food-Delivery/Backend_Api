@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +43,12 @@ public class MenuController {
 		restaurantService.validateRestaurantOwner(menu.getRestaurant().getId(), principal.getName());
 		Menu newMenu = menuService.createNewMenu(menu);
 		return ResponseEntity.ok(newMenu);
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<Menu> updateMenu(@RequestBody Menu menu, Principal principal) {
+		restaurantService.validateRestaurantOwner(menu.getRestaurant().getId(), principal.getName());
+		return ResponseEntity.ok(menuService.updateMenu(menu));
 	}
 	
 }
