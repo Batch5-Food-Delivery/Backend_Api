@@ -53,4 +53,15 @@ public class MenuServiceImpl implements MenuService {
 		return menuRepository.save(ogMenu);
 	}
 
+	@Override
+	public void deleteMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		Optional<Menu> menuOptional = menuRepository.findByIdAndRestaurant(menu.getId(), menu.getRestaurant());
+		if (menuOptional.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("Menu not found");
+		}
+		menuRepository.delete(menu);
+	
+	}
+
 }
