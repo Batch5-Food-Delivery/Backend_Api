@@ -17,6 +17,8 @@ public interface RestaruantService {
 	
 	Restaruant saveRestaruant(Restaruant restaruant);
 	
+	Restaruant updateRestaurant(Restaruant restaurant);
+	
 	void deleteRestaurnt(Long id);
 	
 	boolean isRestaurantOwner(Long restaurantId, String ownerName);

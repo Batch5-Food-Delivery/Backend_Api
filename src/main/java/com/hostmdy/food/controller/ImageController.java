@@ -72,11 +72,18 @@ public class ImageController {
 	@GetMapping("/{imageName}")
     public ResponseEntity<byte[]> getImage(@PathVariable String imageName) throws IOException {
         ClassPathResource resource = new ClassPathResource("static/images/product/" + imageName);
-        byte[] imageBytes = Files.readAllBytes(resource.getFile().toPath());
+        
+        try {
+        	 byte[] imageBytes = Files.readAllBytes(resource.getFile().toPath());
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(imageBytes);
+             return ResponseEntity.ok()
+                     .contentType(MediaType.IMAGE_JPEG)
+                     .body(imageBytes);
+        } catch (IOException e) {
+			// TODO: handle exception
+        	throw new DatabaseRecordNotFoundException("Can't find the image");
+		}
+       
     }
 	
 	

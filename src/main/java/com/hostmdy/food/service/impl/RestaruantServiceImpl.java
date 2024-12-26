@@ -98,5 +98,24 @@ public class RestaruantServiceImpl implements RestaruantService  {
 		return resRepo.save(restaurant);
 	}
 
+	@Override
+	public Restaruant updateRestaurant(Restaruant restaurant) {
+		// TODO Auto-generated method stub
+		Optional<Restaruant> resOptional = resRepo.findById(restaurant.getId());
+		if (resOptional.isEmpty()) {
+			throw new DatabaseRecordNotFoundException("Restaurant you're trying to access"
+					+ " is not available");
+		}
+		
+		// Original restaurant saved in DB
+		Restaruant ogRestaurant = resOptional.get();
+		
+		// Owner and profile pic will not be changed
+		restaurant.setOwner(ogRestaurant.getOwner());
+		restaurant.setProfile(ogRestaurant.getProfile());
+		return resRepo.save(restaurant);
+		
+	}
+
 	
 }
