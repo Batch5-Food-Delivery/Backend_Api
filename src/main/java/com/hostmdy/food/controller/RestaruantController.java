@@ -125,6 +125,12 @@ public class RestaruantController {
 		return ResponseEntity.ok(resId);
 	
 	}
+	
+	@GetMapping("/search")
+    public ResponseEntity<List<Restaruant>> searchRestaurants(@RequestParam String name) {
+        List<Restaruant> restaurants = resService.searchRestaurants(name);
+        return ResponseEntity.ok(restaurants);
+    }
 
 	@GetMapping("/{resId}/isOwner")
 	public ResponseEntity<Boolean> isOwner(@PathVariable Long resId, Principal principal) {

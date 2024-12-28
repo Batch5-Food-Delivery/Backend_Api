@@ -27,5 +27,7 @@ public interface RestaruantService {
 	
 	List<Restaruant> getPendingRestaurants();
 	
+	List<Restaruant> searchRestaurants(String name);
+	
 	Restaruant acceptRestaurant(Long restaurantId);
 }

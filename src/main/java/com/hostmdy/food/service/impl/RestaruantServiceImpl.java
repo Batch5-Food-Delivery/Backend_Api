@@ -117,5 +117,11 @@ public class RestaruantServiceImpl implements RestaruantService  {
 		
 	}
 
+	@Override
+	public List<Restaruant> searchRestaurants(String name) {
+		// TODO Auto-generated method stub
+		return resRepo.findByAvailableTrueAndNameContaining(name);
+	}
+
 	
 }

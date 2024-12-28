@@ -32,6 +32,7 @@ import com.hostmdy.food.exception.DatabaseRecordNotFoundException;
 import com.hostmdy.food.service.FoodService;
 import com.hostmdy.food.service.ImageService;
 import com.hostmdy.food.service.RestaruantService;
+import com.hostmdy.food.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,6 +46,7 @@ public class FoodController {
 	private final FoodService foodService;
 	private final RestaruantService restaurantService;
 	private final ImageService imageService;
+	private final UserService userService;
 
 	@GetMapping("/all")
 	public List<Food> getAllFoods(){
@@ -110,7 +112,9 @@ public class FoodController {
 			return ResponseEntity.notFound().build();
 		}
 		
-		restaurantService.validateRestaurantOwner(food.get().getRestaurant().getId(), principal.getName());
+		if (!userService.getUserByUsername(principal.getName()).isAdmin()) {
+			restaurantService.validateRestaurantOwner(food.get().getRestaurant().getId(), principal.getName());
+		}
 		
 		foodService.deleteFood(foodId);
 		
