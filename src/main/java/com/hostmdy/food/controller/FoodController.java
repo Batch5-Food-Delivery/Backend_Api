@@ -92,7 +92,10 @@ public class FoodController {
 			return ResponseEntity.badRequest().build();
 		}
 		
-		restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
+	    if (!userService.getUserByUsername(principal.getName()).isAdmin()) {
+			restaurantService.validateRestaurantOwner(food.getRestaurant().getId(), principal.getName());
+
+	    }
 		
 		Food updatedFood = foodService.updateFood(food);
 		

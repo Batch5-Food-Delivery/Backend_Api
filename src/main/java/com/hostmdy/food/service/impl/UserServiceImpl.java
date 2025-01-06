@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		// Assigning Role
-		Optional<Role> roleOptional = roleRepository.findByName("USER");
+		Optional<Role> roleOptional = roleRepository.findByName("ROLE_USER");
 		if(roleOptional.isEmpty()) {
 			throw new NullPointerException("ROLE_USER is not found");
 		}
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public List<User> getAllAvailableDrivers() {
-		Optional<Role> driverRole = roleRepository.findByName("DRIVER");
+		Optional<Role> driverRole = roleRepository.findByName("ROLE_DRIVER");
 		if (driverRole.isEmpty()) {
 			throw new DatabaseRecordNotFoundException("ROLE_DRIVER not found");
 		}
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User applyDriver(User user) {
 		// TODO Auto-generated method stub
-		Optional<Role> driverRole = roleRepository.findByName("DRIVER");
+		Optional<Role> driverRole = roleRepository.findByName("ROLE_DRIVER");
 		if (driverRole.isEmpty()) {
 			throw new DatabaseRecordNotFoundException("ROLE_DRIVER not found");
 		}

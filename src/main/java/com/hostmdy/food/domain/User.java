@@ -75,13 +75,13 @@ public class User {
 	@JsonIgnore
 	public boolean isAdmin() {
         return userRoles.stream()
-                    .anyMatch(ur -> ur.getRole().getName().equals("ADMIN"));
+                    .anyMatch(ur -> ur.getRole().getName().equals("ROLE_ADMIN"));
     }
 	
 	@JsonIgnore
 	public boolean isDriver() {
         return userRoles.stream()
-                    .anyMatch(ur -> ur.getRole().getName().equals("DRIVER"));
+                    .anyMatch(ur -> ur.getRole().getName().equals("ROLE_DRIVER"));
     }
 	
 	public List<String> getRoles() {

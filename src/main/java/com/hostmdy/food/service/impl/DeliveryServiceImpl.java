@@ -39,13 +39,13 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Override
 	public List<Delivery> getCompletedDeliveriesByDriver(User driver) {
 		// TODO Auto-generated method stub
-		return deliveryRepository.findByDriverAndCompletedTrue(driver);
+		return deliveryRepository.findByDriverAndCompletedTrueOrderByIdDesc(driver);
 	}
 
 	@Override
 	public List<Delivery> getCurrentDeliveriesByDriver(User driver) {
 		// TODO Auto-generated method stub
-		return deliveryRepository.findByDriverAndCompletedFalse(driver);
+		return deliveryRepository.findByDriverAndCompletedFalseOrderByIdDesc(driver);
 	}
 
 	@Override

@@ -108,13 +108,13 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<Order> getCurrentOrdersByRestaurant(Restaruant restaurant) {
 		// TODO Auto-generated method stub
-		return orderRepository.findByRestaurantAndCompletedFalse(restaurant);
+		return orderRepository.findByRestaurantAndCompletedFalseOrderByIdDesc(restaurant);
 	}
 
 	@Override
 	public List<Order> getCompletedOrdersByRestaurant(Restaruant restaurant) {
 		// TODO Auto-generated method stub
-		return orderRepository.findByRestaurantAndCompletedTrue(restaurant);
+		return orderRepository.findByRestaurantAndCompletedTrueOrderByIdDesc(restaurant);
 	}
 
 	@Override
@@ -143,6 +143,6 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<Order> getOrdersByCustomer(User customer) {
 		// TODO Auto-generated method stub
-		return orderRepository.findByCustomer(customer);
+		return orderRepository.findByCustomerOrderByIdDesc(customer);
 	}
 }

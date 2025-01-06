@@ -166,6 +166,7 @@ public class RestaruantController {
     
     @PutMapping("/acceptRestaurant")
     public ResponseEntity<Restaruant> acceptRestaurant(@RequestParam Long id) {
+    	System.out.println("control");
     	return ResponseEntity.ok(resService.acceptRestaurant(id));
     }
 	

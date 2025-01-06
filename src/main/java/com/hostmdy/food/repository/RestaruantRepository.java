@@ -11,7 +11,7 @@ import com.hostmdy.food.domain.User;
 public interface RestaruantRepository extends CrudRepository<Restaruant, Long> {
 
 	Optional<Restaruant> findByIdAndOwner(Long id, User owner);
-	List<Restaruant> findByAvailableTrue();
+	List<Restaruant> findByAvailableTrueOrderByIdDesc();
 	List<Restaruant> findByAvailableFalse();
 	List<Restaruant> findByAvailableTrueAndNameContaining(String name);
 }

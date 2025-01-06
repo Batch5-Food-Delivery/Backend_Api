@@ -32,7 +32,7 @@ public class RestaruantServiceImpl implements RestaruantService  {
 	@Override
 	public List<Restaruant> getAllRestaruant() {
 		// TODO Auto-generated method stub
-		return (List<Restaruant>) resRepo.findByAvailableTrue();
+		return (List<Restaruant>) resRepo.findByAvailableTrueOrderByIdDesc();
 	}
 
 	@Override

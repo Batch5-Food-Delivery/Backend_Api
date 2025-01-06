@@ -60,7 +60,9 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 					.requestMatchers("/user/login").permitAll()
 					.requestMatchers("/user/create").permitAll()
-					.requestMatchers(HttpMethod.GET, "/restaurant/**").permitAll() 
+					.requestMatchers(HttpMethod.GET, "/restaurant/**").permitAll()
+					.requestMatchers("/restaurant/pendingRestaurants").hasRole("ADMIN")
+					.requestMatchers("/restaurant/acceptRestaurant").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.GET, "/menu/**").permitAll() 
 					.requestMatchers(HttpMethod.GET, "/food/**").permitAll()
 					.requestMatchers("/driver").hasRole("DRIVER")

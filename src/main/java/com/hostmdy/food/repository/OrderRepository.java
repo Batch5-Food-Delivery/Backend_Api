@@ -12,7 +12,7 @@ import com.hostmdy.food.domain.User;
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
 	Optional<Order> findByRestaurantAndId(Restaruant restaurant, Long id);
-	List<Order> findByRestaurantAndCompletedTrue(Restaruant restaurant);
-	List<Order> findByRestaurantAndCompletedFalse(Restaruant restaurant);
-	List<Order> findByCustomer(User customer);
+	List<Order> findByRestaurantAndCompletedTrueOrderByIdDesc(Restaruant restaurant);
+	List<Order> findByRestaurantAndCompletedFalseOrderByIdDesc(Restaruant restaurant);
+	List<Order> findByCustomerOrderByIdDesc(User customer);
 }
