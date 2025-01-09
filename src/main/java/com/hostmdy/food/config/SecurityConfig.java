@@ -6,6 +6,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -59,6 +60,12 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 					.requestMatchers("/user/login").permitAll()
 					.requestMatchers("/user/create").permitAll()
+					.requestMatchers(HttpMethod.GET, "/restaurant/**").permitAll()
+					.requestMatchers("/restaurant/pendingRestaurants").hasRole("ADMIN")
+					.requestMatchers("/restaurant/acceptRestaurant").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.GET, "/menu/**").permitAll() 
+					.requestMatchers(HttpMethod.GET, "/food/**").permitAll()
+					.requestMatchers("/driver").hasRole("DRIVER")
 					.anyRequest().authenticated())
 			.httpBasic(Customizer.withDefaults())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

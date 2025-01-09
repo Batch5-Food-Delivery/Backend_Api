@@ -13,7 +13,7 @@ public interface UserService {
 	Optional<User> getUserByEmail(String email);
 	User getUserByUsername(String username);
 	
-	
+	List<User> getAllAvailableDrivers();
 	
     Optional<User> getUserById(Long userId);
 		
@@ -21,6 +21,10 @@ public interface UserService {
 	
 	User createUser(User user);
 	
+	User applyDriver(User user);
+	
 	void deleteUserById(Long userId);
+	
+	User availableSwitch(User user, Boolean available);
 
 }

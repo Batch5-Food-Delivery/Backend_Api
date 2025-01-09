@@ -8,6 +8,7 @@ import com.hostmdy.food.domain.Food;
 import com.hostmdy.food.domain.Region;
 import com.hostmdy.food.domain.Restaruant;
 import com.hostmdy.food.repository.FoodRepository;
+import com.hostmdy.food.repository.OrderRepository;
 import com.hostmdy.food.repository.RegionRepository;
 import com.hostmdy.food.repository.RestaruantRepository;
 
@@ -34,19 +35,7 @@ public class FoodDeliveryApiApplication implements CommandLineRunner {
 		food1.setName("test");
 		food1.setPicture("test");
 		food1.setPrice(900.3);
-		foodRepository.save(food1);
-		
-		
-		Restaruant rest1 = new Restaruant();
-		rest1.setAvailable(true);
-		rest1.setDescription("This is Test");
-		rest1.setName("Test");
-		rest1.setProfile("This is test profile");
-		resRepository.save(rest1);
-		
-		Region reg1 = new Region();
-		reg1.setRegion("Mandalay");
-		regionRepository.save(reg1);
+		//foodRepository.save(food1);
 		
 	}
 

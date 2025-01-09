@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +22,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/driver")
+@CrossOrigin("http://localhost:3000")
 public class DriverDeliveryController {
 	
 	private final DeliveryService deliveryService;
 	private final UserService userService;
 	
-	@GetMapping("/deliveries")
+	@GetMapping("/myDeliveries")
 	public ResponseEntity<List<Delivery>> getDeliveriesByDriver(Principal principal){
 		
 		User driver = userService.getUserByUsername(principal.getName());
@@ -35,7 +37,7 @@ public class DriverDeliveryController {
 		return ResponseEntity.ok(deliveryList);
  	}
 	
-	@GetMapping("/deliveries/history")
+	@GetMapping("/myDeliveries/history")
 	public ResponseEntity<List<Delivery>> getCompletedDeliveriesByDriver(Principal principal) {
 		
 		User driver = userService.getUserByUsername(principal.getName());
@@ -47,7 +49,6 @@ public class DriverDeliveryController {
 	@PatchMapping("/deliveries/complete/{deliveryId}")
 	public ResponseEntity<Delivery> completeDelivery(@PathVariable Long deliveryId, Principal principal) {
 		
-		User driver = userService.getUserByUsername(principal.getName());
-		return ResponseEntity.ok(deliveryService.completeDelivery(driver, deliveryId));
+		return ResponseEntity.ok(deliveryService.completeDelivery(deliveryId, principal));
 	}
 }
