@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.hostmdy.food.config.JwtTokenProvider;
 import com.hostmdy.food.domain.User;
@@ -32,7 +33,7 @@ import com.hostmdy.food.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 @CrossOrigin("http://localhost:3000")
